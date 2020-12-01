@@ -1,0 +1,618 @@
+/* body {
+  font-family: "Montserrat" !important;
+} */
+
+.boxTextoProjetoPedagogico p {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 25px;
+}
+
+.estiloInformacoes a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.estiloInformacoes p {
+    color: white;
+    text-align: justify;
+    font-size: 20px;
+}
+
+.matriculasAbertas a.nav-link {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-radius: 5rem !important;
+    text-decoration: none !important;
+}
+
+.matriculasAbertas a.nav-link:hover {
+    text-decoration: none !important;
+}
+
+.estiloInformacoes ul li {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 14px;
+}
+
+.filter-option-inner-inner {
+    font-size: 16px !important;
+    color: #808282 !important;
+}
+
+.dropdown-toggle {
+    border: 1px solid #cfd1d1 !important;
+}
+
+label {
+    font-weight: bold;
+}
+
+#boxMaisInfoPreinscricao .card-body p span:nth-child(1) {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.card-body {
+    width: 100%;
+}
+
+.card-body table tr td,
+.card-body table tr th,
+.card-body li,
+.card-body label,
+.card-body label a,
+.card-body p,
+.card-body p a,
+.card-body li a,
+.card-body p span,
+.card-body p i {
+    color: #091b2f;
+}
+
+a.linkDocumentosRapido {
+    font-size: 13px;
+}
+
+#boxResultadoBolsaSocial {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    background-color: tomato;
+    border-radius: 4px;
+    align-items: center;
+    margin-bottom: 15px;
+    height: 80px;
+    cursor: pointer;
+    color: #091b2f;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#boxResultadoBolsaSocial p {
+    margin: 0px;
+    padding: 0px;
+    color: white;
+}
+
+.displayNone {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.block {
+    display: block;
+    width: 100%;
+}
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-self-stretch {
+    align-self: stretch;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.mais-alunos-success {
+    background-color: #d4edda;
+    font-size: 13px;
+    color: #56705c;
+}
+
+.mais-alunos-danger {
+    background-color: #f8d7da;
+    font-size: 13px;
+    color: #91242d;
+}
+
+.minHeight {
+    min-height: 650px;
+}
+
+.cardBolsa {
+    margin: 5px;
+    width: 100%;
+}
+
+.cardBolsa textarea {
+    font-size: 12px;
+}
+
+.cardBolsa .card-header strong {
+    margin-right: 6px;
+}
+
+.cardBolsa button {
+    display: block;
+    padding: 4px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.cardBolsa label {
+    margin-right: 10px;
+    margin-left: 3px;
+}
+
+.cardBolsa select {
+    padding: 2px;
+    margin-left: 7px;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.fundoBranco {
+    background-color: #ffffff;
+}
+
+.fundoRoxo {
+    background-color: #513875;
+}
+
+.fundoAzulAgua {
+    background-color: #186f7f;
+}
+
+.fundoAzul {
+    background-color: #3e4b69;
+}
+
+.fundoCinza {
+    background-color: #ebedf1;
+}
+
+.imgCampanhaPreInscricao {
+    overflow: hidden;
+    background-color: #3e4b69;
+    background-image: url("../img/campanha2021/imagem_preinscricao.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.fundoAzulWithOpacity {
+    background-color: rgba(62, 75, 105, 0.8);
+}
+
+.colorIcon {
+    color: rgb(62, 75, 105);
+}
+
+.fundoRodape {
+    background-color: #21438e;
+}
+
+.cardForm {
+    color: #ffffff;
+    /* border: 2px solid #091b2f; */
+}
+
+#tabelaAlunosSerie {
+    /* color: white; */
+}
+
+.cardForm input,
+.cardForm select {
+    /* background-color: #20477b; */
+    color: #091b2f;
+    border: 2px solid white;
+}
+
+.cardForm a {
+    color: white;
+    text-decoration: underline;
+}
+
+.cardForm span {
+    color: white;
+}
+
+.imagemUnidade {
+    border: 2px solid white;
+}
+
+.configFooter ul li {
+    display: inline;
+    font-size: 13px;
+    color: white;
+}
+
+
+/* .formOuvidoria input,
+.formOuvidoria select,
+.formOuvidoria input:active,
+.formOuvidoria textarea,
+.formOuvidoria textarea:active {
+  background-color: #186f7f !important;
+  border: 2px solid white !important;
+} */
+
+
+/* .formOuvidoria small {
+  color: white;
+} */
+
+.menu .navbar li {
+    font-size: 12px;
+    display: inline;
+}
+
+.navbar-brand {
+    margin-top: 3px;
+    margin-bottom: -50px;
+    z-index: 999;
+}
+
+.navbar-brand img {
+    width: 160px;
+}
+
+.customCard2021 {
+    background-color: white;
+    border-radius: 16px;
+    padding: 5px 5px 10px 10px;
+    border: 1px solid #262f42;
+    background-color: white;
+    box-shadow: 2px 2px 5px #262f42;
+}
+
+.customCard2021:hover {
+    background-color: #ebedf1;
+    cursor: pointer;
+}
+
+.navbar ul.navbar-nav {
+    padding-top: 20px;
+}
+
+.navbar ul.navbar-nav a {
+    color: #112971 !important;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.navbar ul.navbar-nav a:hover {
+    text-decoration: underline !important;
+}
+
+#menu-toogle ul li a {
+    color: #112971 !important;
+    font-size: 14px;
+}
+
+#emailConsulta {
+    padding: 10px;
+}
+
+
+/* .formTemaAzulSerio input,
+.formTemaAzulSerio select,
+.formTemaAzulSerio select optgroup,
+.inputTemaAzulSerio {
+  color: white !important;
+  background-color: #20477b !important;
+  border: 1px solid white;
+}
+
+.inputTemaAzulSerio::placeholder {
+  color: white !important;
+} */
+
+
+/* .formTemaAzulSerio label,
+.formTemaAzulSerio p {
+  color: white;
+} */
+
+
+/* .formTemaPH input::placeholder,
+.formTemaPH textarea::placeholder {
+  color: white;
+} */
+
+.bs-placeholder {
+    background-color: #20477b !important;
+    color: white;
+    border: 1px solid #20477b;
+}
+
+.filter-option-inner-inner {
+    /* color: #fff !important; */
+    background-color: #ffffff !important;
+}
+
+.bootstrap-select .dropdown-toggle {
+    background-color: #ffffff !important;
+}
+
+.btTema {
+    padding: 13px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #262f42;
+    color: white;
+}
+
+.boxImagemEscola:hover {
+    border: 2px solid #ffffff !important;
+}
+
+.cssBolsas p {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.customCard2021 a {
+    text-decoration: none;
+    color: #333333;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.customCard2021 {
+    border: 4px solid white;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.customCard2021 i {
+    font-size: 3em;
+    margin-right: 10px;
+}
+
+.textoInfoHome {
+    /* line-height: 24px;  */
+    width: 100%;
+}
+
+.linkHome {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.imgMeninaPlantaEscola {
+    max-width: 700px;
+}
+
+@media (max-width: 575px) {
+    .textoInfoHome {
+        padding-top: 20px;
+        line-height: 24px;
+    }
+    .linkHome {
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .btnPP_parte1 {
+        width: 100px;
+    }
+    .btnPP_parte2 {
+        width: 75%;
+    }
+    .btnPP_parte2 span {
+        font-size: 13px !important;
+    }
+    .btnPP_parte2_impar {
+        margin-left: 10%;
+    }
+    .btnPP_parte2_par {
+        width: 55%;
+    }
+    .circulo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: white;
+        font-size: 40px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    /* Small devices (between 576px and 767px). Mixin: media-breakpoint-only(sm) */
+    .textoInfoHome {
+        padding-top: 20px;
+        line-height: 24px;
+    }
+    .linkHome {
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .btnPP_parte1 {
+        width: 100px;
+    }
+    .btnPP_parte2 {
+        width: 75%;
+    }
+    .btnPP_parte2_impar {
+        margin-left: 8%;
+    }
+    .circulo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: white;
+        font-size: 50px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Medium devices (tablets, between 768px and 991px). Mixin: media-breakpoint-only(md) */
+    .textoInfoHome {
+        padding-top: 20px;
+        line-height: 26px;
+    }
+    .btnPP_parte1 {
+        width: 100px;
+    }
+    .btnPP_parte2 {
+        width: 75%;
+    }
+    .btnPP_parte2_impar {
+        margin-left: 8%;
+    }
+    .circulo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: white;
+        font-size: 50px;
+    }
+}
+
+@media (min-width: 1px) and (max-width: 900px) {
+    .imgMeninaPlantaEscola {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 1px) and (max-width: 800px) {
+    .projeto800 {
+        display: none;
+    }
+    .projetoM800 {
+        display: block !important;
+        background-image: url("../img/campanha2020/fundo_pp.png");
+        background-repeat: repeat-y;
+        background-size: cover;
+    }
+}
+
+@media (min-width: 800px) {
+    .projeto800 {
+        display: block;
+    }
+    .projetoM800 {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    /* Large devices (desktops, between 992px and 1199px). Mixin: media-breakpoint-only(lg) */
+    .textoInfoHome {
+        line-height: 26px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    /* Extra large devices (large desktops, 1200px and up). Mixin: media-breakpoint-only(xl) */
+    .textoInfoHome {
+        line-height: 30px;
+        width: 100%;
+    }
+    .linkHome {
+        margin-top: 50px;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+}
+
+.btnPP_pai {
+    margin: 0 auto;
+    width: 90%;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.modalPasso .modal-header {
+    color: white;
+    border-bottom: 3px solid white;
+}
+
+.modalPasso .modal-header button {
+    color: white;
+}
+
+.modalPasso .modal-header h5 {
+    font-size: 25px !important;
+}
+
+.modalPasso .modal-content {
+    background: transparent;
+}
+
+.modalPasso .modal-body {
+    background-color: white;
+    font-size: 13px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.text-danger,
+a.text-danger {
+    color: #fc9e9c !important;
+}
+
+.text-success {
+    color: #8bd28c !important;
+}

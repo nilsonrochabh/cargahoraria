@@ -1,0 +1,168 @@
+.filter-option-inner-inner {
+  font-size: 16px !important;
+  color: #808282 !important;
+}
+.dropdown-toggle {
+  border: 1px solid #cfd1d1 !important;
+}
+label {
+  font-weight: bold;
+}
+#boxMaisInfoPreinscricao .card-body p span:nth-child(1) {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+a.linkDocumentosRapido {
+  font-size: 13px;
+}
+
+#boxResultadoBolsaSocial {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  background-color: tomato;
+  border-radius: 4px;
+  align-items: center;
+  margin-bottom: 15px;
+  height: 80px;
+  cursor: pointer;
+}
+
+#boxResultadoBolsaSocial p {
+  margin: 0px;
+  padding: 0px;
+  color: white;
+}
+
+.displayNone {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1;
+}
+.block {
+  display: block;
+  width: 100%;
+}
+.justify-content-space-between {
+  justify-content: space-between;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.align-items-center {
+  align-items: center;
+}
+.align-self-stretch {
+  align-self: stretch;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.flex-row {
+  flex-direction: row;
+}
+
+.mais-alunos-success {
+  background-color: #d4edda;
+  font-size: 13px;
+  color: #56705c;
+}
+
+.mais-alunos-danger {
+  background-color: #f8d7da;
+  font-size: 13px;
+  color: #91242d;
+}
+
+.cardBolsa {
+  margin: 5px;
+  width: 100%;
+}
+.cardBolsa textarea {
+  font-size: 12px;
+}
+.cardBolsa .card-header strong {
+  margin-right: 6px;
+}
+.cardBolsa button {
+  display: block;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  background-color: #007bff;
+  font-weight: bold;
+  font-size: 13px;
+}
+.cardBolsa label {
+  margin-right: 10px;
+  margin-left: 3px;
+}
+.cardBolsa select {
+  padding: 2px;
+  margin-left: 7px;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+/* The navigation bar */
+.menu .navbar {
+  background-color: white;
+  border-top: 6px solid #044fa2;
+}
+
+.menu-mobile {
+  background-color: white;
+  border-top: 6px solid #044fa2;
+}
+
+.menu .navbar li {
+  margin: 10px;
+  font-size: 14px;
+  float: right;
+}
+
+/* Change background on mouse-over */
+.navbar ul.navbar-nav a:hover {
+  background-color: #fec502;
+}
+
+.cssBolsas p {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.boxOptions a {
+  text-decoration: none;
+  color: #333333;
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* Small devices (between 576px and 767px). Mixin: media-breakpoint-only(sm) */
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* Medium devices (tablets, between 768px and 991px). Mixin: media-breakpoint-only(md) */
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  /* Large devices (desktops, between 992px and 1199px). Mixin: media-breakpoint-only(lg) */
+  .margemFixedMenu {
+    margin-top: 116px;
+  }
+}
+
+@media (min-width: 1200px) {
+  /* Extra large devices (large desktops, 1200px and up). Mixin: media-breakpoint-only(xl) */
+  .margemFixedMenu {
+    margin-top: 116px;
+  }
+}
