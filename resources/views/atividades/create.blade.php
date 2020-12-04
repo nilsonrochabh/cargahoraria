@@ -92,6 +92,10 @@
 @section('post-script')
 
 <script type="text/javascript">
+   $("#professor_id").select2({
+           placeholder: "Professor",
+           allowClear: true
+          });
   $("#evento_id").select2({
                     placeholder: "Evento",
                     allowClear: true
@@ -127,10 +131,7 @@ jQuery(document).ready(function ()
 
 
 
-    $("#professor_id").select2({
-           placeholder: "Professor",
-           allowClear: true
-          });
+ 
 
     jQuery('select[name="professor_id"]').on('change',function(){        
         var prof_id = jQuery(this).val();

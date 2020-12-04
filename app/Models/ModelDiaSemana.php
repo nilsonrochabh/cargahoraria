@@ -9,4 +9,8 @@ class ModelDiaSemana extends Model
 {
     use HasFactory;
     protected $table = 'diasemana';
+
+    public function relProfessorHorario(){
+        return $this->belongsTo( 'App\Models\ModelProfessorHorario','id','diasemana_id');
+    }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.paginas')
+@extends('layouts.professor');
 @section('content')
 
 <style>
@@ -50,6 +50,8 @@
                 <td>
                     <a href="{{url("professor/$professor->id")}}">
                         <button class="btn btn-dark">Vizualizar</button>
+                    <a href="{{url("professor/$professor->id/enturmar")}}">
+                        <button class="btn btn-warning">Enturmar</button>
                         
                     </a>
                 </td>
@@ -65,10 +67,15 @@
 
 $(document).ready(function() {
     
-    $('#professores').dataTable( {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+    $('#professores').dataTable(
+         {responsive: true,
+            "language": {                
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json",
+               
             },
+            "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
+           
+
         });
     });
 

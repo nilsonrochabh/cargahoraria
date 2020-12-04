@@ -92,7 +92,7 @@ class AtividadeController extends Controller
     public function lista()
     {       
         $atividades = $this->objAtividade->all();
-        $atividades->load('professor_id');
+       // $atividades->load('professor_id');
         return view('atividade',compact('atividades'));
     }
     public function show($id)
@@ -100,7 +100,7 @@ class AtividadeController extends Controller
        
         $atividade = $this->objAtividade->find($id);
         
-    return view('atividades/visualizar',compact('atividade',));
+        return view('atividades/visualizar',compact('atividade',));
     
     }
     public function edit($id)

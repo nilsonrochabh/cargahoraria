@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\ModelProfessor;
 use App\Models\ModelUnidade;
 use App\Models\ModelMaterias;
+use App\Models\ModelHorarioTurma;
+use App\Models\ModelDiaSemana;
+use App\Models\ModelHorario;
+use App\Models\ModelSerie;
+use App\Models\ModelSeguimento;
+use App\Models\ModelTurma;
+use App\Models\ModelTurno;
+use App\Models\ModelProfessorHorario;
 use Illuminate\Support\Facades\Auth;
 
 class ProfessorController extends Controller
@@ -36,10 +44,10 @@ class ProfessorController extends Controller
     public function create()
     {   
         $usuario = Auth::user();
-        $professor=ModelProfessor::get();
         $materias = ModelMaterias::all();
+        $professores =ModelProfessor::get(); 
                
-        return view('professor/create', compact('professor','usuario','materias'));
+        return view('professor/create', compact('usuario','materias','professores'));
     }
 
     
@@ -62,16 +70,36 @@ class ProfessorController extends Controller
 
     public function show($id)
     {
+        $materias = ModelMaterias::all();
         $professor = ModelProfessor::find($id);
+        $horarioProf = ModelProfessorHorario::with('professor_id')->find($id);
         //$turmas = $this->objTurma->all();
-        return view('professor/visualizar',compact('professor'));
+        return view('professor/visualizar',compact('professor','horarioProf','materias'));
     
     }
     public function edit($id)
     {
         $professor = ModelProfessor::find($id);
         $usuario = Auth::user();
-        return view('professor/create',compact('professor','usuario'));
+        $materias = ModelMaterias::all();
+        return view('professor/create',compact('professor','usuario','materias'));
+    }
+    public function enturmar($id){
+        $usuario = Auth::user();
+        $professor = ModelProfessor::find($id);
+        $materias = ModelMaterias::get();
+        $materia1= ModelMaterias::where('id','=',$id)->get();
+        $materia2= ModelMaterias::where('id','=',$id)->get();
+        $materia3= ModelMaterias::where('id','=',$id)->get();
+        $diasemana = ModelDiaSemana::get();
+        $turmas=ModelTurma::get();
+        $turno=ModelTurno::get();
+        $horario=Modelhorario::get();
+
+
+        return view('professor/enturmar', 
+                compact('professor','materia1','materia2',
+                'materia3','usuario','diasemana','turmas','horario','turno'));
     }
 
     public function update(Request $request, $id)
@@ -99,37 +127,5 @@ class ProfessorController extends Controller
         //
     }
 
-
-
-    public function search(Request $request)
-    {
-        if($request->ajax())
-        {
-            $output="";
-            $professores=ModelProfessor::where('nm_professor','LIKE','%'.$request->search."%")->get();
-            if($professores)
-            {
-            foreach ($professores as $key => $prof) {
-            $output.=
-            '<td>'.$prof->matricula.'</td>'.
-            '<td>'.$prof->nm_professor.'</td>'.  
-            '<td>'.$prof->carga_horaria.'</td>'.  
-            '<td>
-                <a href="professor/'.$prof->id.'">
-                    <button class="btn btn-dark">Vizualizar</button>
-                    
-                </a>
-    
-                <a href="">
-                    <button class="btn btn-primary">Editar</button>
-                    
-                </a>
-            </td>'
-            ;
-            }
-            return Response($output);
-        }
-        }
-    }
 
 }

@@ -57,7 +57,7 @@ class HorarioTurmaController extends Controller
         $series =$this->objSerie->all();
         $diasemana =$this->objDiaSemana->all();
         $horarios=$this->objHorario->all();
-
+        $horarioProfessores=ModelProfessorHorario::get();
         $horarioTurmas=$this->objHoraTurma->get();
         $turmas=$this->objTurma->all();
         $turnos=$this->objTurno->all();
@@ -65,7 +65,25 @@ class HorarioTurmaController extends Controller
         $materias=$this->objMateria->all();
         $usuario = Auth::user(); 
         
-        return view('turma/index',compact('seguimentos','diasemana','horarios','series','horarioTurmas','turmas','turnos','professores','materias','usuario'));
+        return view('turma/index',compact('seguimentos','diasemana','horarios','series'
+                                         ,'horarioTurmas','turmas','turnos','professores','materias','usuario','horarioProfessores'));
+    }
+
+    public function horarioProfessores($id){
+        $horarioProfessores=ModelProfessorHorario::where('horarioturma_id','=',$id)->get();
+        $horarioProfessores=ModelProfessorHorario::where('horarioturma_id','=',$id)->get();
+        $seguimentos = $this->objSeguimento->all();
+        $series =$this->objSerie->all();
+        $diasemana =$this->objDiaSemana->all();
+        $horarios=$this->objHorario->all();
+        $horarioTurmas=ModelHorarioTurma::where('id','=',$id)->get();
+        $turmas=$this->objTurma->all();
+        $turnos=$this->objTurno->all();
+        $professores=$this->objProfessor->all();
+        $materias=$this->objMateria->all();
+        $usuario = Auth::user(); 
+        return view('turma/horario_prof',compact('horarioProfessores' ,'seguimentos','diasemana','horarios','series'
+        ,'horarioTurmas','turmas','turnos','professores','materias','usuario'));
     }
     public function create()
     {
@@ -119,17 +137,12 @@ class HorarioTurmaController extends Controller
           ModelProfessorHorario::insert($dados2);
       }
     }
-    return redirect()->back()->with('sucess','Dados Cadastrados com Sucesso');
+    return redirect()->route('turma.index')->with('sucess','Dados Cadastrados com Sucesso');
     //return $request;
        
      }
     
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show($id)
     {
         //
@@ -140,6 +153,11 @@ class HorarioTurmaController extends Controller
         $series = DB::table("serie")->where("seguimento_id",$segui_id)->pluck("nm_serie","id");
         return json_encode($series);
         }
+    public function getMaterias($segui_id) 
+    {        
+       $materias1 = DB::table("materia")->where("seguimento_id",$segui_id)->pluck("nm_materia","id");
+       return json_encode($materias1);
+    }
 
     public function retornaProf($uni_id){
         $prof= DB::table("professor")->where("unidade_id",$uni_id)->pluck("nm_professor","id");
@@ -163,24 +181,13 @@ class HorarioTurmaController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         //

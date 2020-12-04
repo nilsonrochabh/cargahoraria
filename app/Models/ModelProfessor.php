@@ -23,4 +23,20 @@ class ModelProfessor extends Model
     public function relUnidade(){
         return $this->belongsTo( 'App\Models\ModelUnidade', 'unidade_id');
     }
+    public function relProfessorHorario(){
+        return $this->hasOne( 'App\Models\ModelProfessorHorario','professor_id');
+    }
+    public function relHorarioTurma()
+    {
+        return $this->hasOne('App\Models\ModelHorarioTurma', 'horarioturma_id','id');
+    }
+    public function relMateria()
+    {
+        return $this->belongsTo('App\Models\ModelMaterias',  'materia_id');
+    }
+    public function relDiaSemana()
+    {
+        return $this->belongsTo('App\Models\ModelDiaSemana',  'materia_id');
+    }
+ 
 }

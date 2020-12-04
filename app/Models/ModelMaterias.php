@@ -15,4 +15,9 @@ class ModelMaterias extends Model
     {
         return $this->belongsTo('app/Models/ModelSerie','serie_id');
     }
+
+    public function relProfessor()
+    {
+        return $this->belongsTo('app/Models/ModelProfessor','materia_id');
+    }
 }

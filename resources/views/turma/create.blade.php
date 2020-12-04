@@ -110,30 +110,31 @@ div#timelineVisita .inside {
             <div class="row">
        
             <div class="form-group col-md-3">
-                    <select id="seguimento_id" name="seguimento_id" class="form-control" required="" >
-                        <option>Seguimento</option>
+                    <select id="seguimento_id" name="seguimento_id" class="form-control"   required="true" >
+                        <option value="0">Seguimento</option>
                         @foreach($seguimentos as $seguimento)
                             <option value="{{$seguimento->id}}">{{$seguimento->nm_seguimento}}</option>
                             @endforeach    
                     </select>
                     
                     </div>
-                        <div class="form-group col-md-3">
+                    <div class="form-group col-md-3">
                          
-                    <select id="serie_id" name="serie_id" class="form-control" required="" > 
+                    <select id="serie_id" name="serie_id" class="form-control"   required="true" > 
+                      
                     </select>
                     </div>
                     <div class="form-group col-md-2">
-                      <select id="turma_id" name="turma_id" class="form-control"   required="">
-                       <option selected>Turma</option>
+                      <select id="turma_id"  name="turma_id" class="form-control"   required="true">
+                       <option value="0">Turma</option>
                           @foreach($turmas as $turma)
                               <option value="{{$turma->id}}">{{$turma->nm_turma}}</option>
                           @endforeach
                       </select>
                     </div>
                     <div class="form-group col-md-2" require>
-                      <select id="turno_id" name="turno_id" class="form-control" required="" >
-                          <option selected>Turno</option>
+                      <select id="turno_id" name="turno_id" class="form-control"   required="true" >
+                          <option value="0">Turno</option>
                           @foreach($turnos as $turno )
                           <option value="{{$turno->id}}">{{$turno->nm_turno}}</option>
                           @endforeach
@@ -148,7 +149,7 @@ div#timelineVisita .inside {
     <div class="col-lg-12">
        <ul class="nav-timeline nav nav-pills" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="segunda-tab" data-toggle="tab" href="#segunda" role="tab">Segunda</a>
+              <a class="nav-link" id="segunda-tab" data-toggle="tab" href="#segunda" role="tab">Segunda</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="terca-tab" data-toggle="tab" href="#terca" role="tab">Terça</a>
@@ -166,78 +167,56 @@ div#timelineVisita .inside {
               </li>
           </ul>          
     </div>
-
-
-    
-<!-- -->
-
-
-
-
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="segunda" role="tabpanel" aria-labelledby="segunda-tab">
-          <ul class="list-group mt-4">
-              <h2>Segunda</h2>
-              </ul>       
-              <table class="table table-bordered" id="dynamicAddRemove">  
+
+         <div class="tab-pane fade" id="segunda" role="tabpanel" aria-labelledby="segunda-tab">
+            <ul class="list-group mt-4">
+                <h2>Segunda</h2>
+                </ul>       
+                <table class="table table-bordered" >  
                 <tr>
+                <th>Horário</th>
                 <th>Professor</th>
                 <th>Disciplina</th>
                 <th>Ação</th>
                 </tr>
-                <tr> 
-                  <?php
-                  $diasemana[1]->id;
-                  $horarios[0]->id;
-                  ?>
-    
+                <tbody id="tab1">
+                <tr>
+              <td>1ª Horário</td>
                 <td>
-                <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="{{$diasemana[0]->id}}">
+                   <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="{{$diasemana[0]->id}}">
                    <input type="hidden" name="horario_id[]" id="horario_id[]" value="{{$horarios[0]->id}}">
-                <select class="custom-select" id="professor_id[]" name="professor_id[]">
-                                    <option value="0">Professor</option>
+
+                <select class="custom-select" id="professor_id[]" name="professor_id[]" >
+                                    <option value="0" selected>Professor</option>
                                           @foreach($professores as $professor )
                                           <option value="{{$professor->id}}">{{$professor->nm_professor}}</option>
                                           @endforeach
                                   </select>
                   </td>  
                 <td>
-                <select class="custom-select" id="materia_id[]" name="materia_id[]">
-                      <option value="0">Disciplina</option>
-                          @foreach($materias as $materia )
-                       <option value="{{$materia->id}}">{{$materia->nm_materia}}</option>
-                          @endforeach
-                                    
-                  </select>                
-                  
-                <td><button type="button" class="addRow" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
+                  <select id="materiaid[]" name="materia_id[]" class="form-control"   required="true" > 
+                      
+                  </select>                    
+                <td><button type="button" class="addRow1" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
                 </tr>  
+                </tbody>
                 </table>
-    
-                          
-
-                                  
-                                      
-            </div>
-            
-            
-                
+          </div>         
           <div class="tab-pane fade terca" id="terca" role="tabpanel" aria-labelledby="terca-tab">
             <ul class="list-group mt-4">
               <h1>TERÇA</h1>
-              </ul>
-                
-               <table class="table table-bordered" id="dynamicAddRemove">  
+              </ul>  
+               <table class="table table-bordered" >  
                 <tr>
+                <th>Horário</th>
                 <th>Professor</th>
                 <th>Disciplina</th>
                 <th>Ação</th>
                 </tr>
+                <tbody id="tab2" >
                 <tr> 
-                  <?php
-                  $diasemana[2]->id;
-                  $horarios[0]->id;
-                  ?>
+                  <td>1ª Horário</td>
                    <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="{{$diasemana[1]->id}}">
                    <input type="hidden" name="horario_id[]" id="horario_id[]" value="{{$horarios[0]->id}}">
                 <td>
@@ -249,54 +228,107 @@ div#timelineVisita .inside {
                                   </select>
                   </td>  
                 <td>
-                <select class="custom-select" id="materia_id[]" name="materia_id[]">
-                      <option value="0" selected>Disciplina</option>
-                          @foreach($materias as $materia )
-                       <option value="{{$materia->id}}">{{$materia->nm_materia}}</option>
-                          @endforeach
-                                    
-                  </select>                
+                  <select id="materia[]_id" name="materia_id[]" class="form-control"   required="true" > 
+                      
+                  </select>                    
                   
-                <td><button type="button" class="addRow" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
+                <td><button type="button" class="addRow2" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
                 </tr>  
+                </tbody>
                 </table>
-
           </div>
         <div class="tab-pane fade" id="quarta" role="tabpanel" aria-labelledby="quarta-tab">
               <ul class="list-group mt-4">
               <h1>Quarta</h1>
               </ul>
-              
+
+               <table class="table table-bordered" >  
+                <tr>
+                  <th>Horário</th>
+                <th>Professor</th>
+                <th>Disciplina</th>
+                <th>Ação</th>
+                </tr>
+                <tbody id="tab3" >
+                <tr> 
+                  <td>1ª Horário</td>
+                   <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="{{$diasemana[2]->id}}">
+                   <input type="hidden" name="horario_id[]" id="horario_id[]" value="{{$horarios[0]->id}}">
+                <td>
+                <select class="custom-select" id="professor_id[]" name="professor_id[]" >
+                                    <option value="0" selected>Professor</option>
+                                          @foreach($professores as $professor )
+                                          <option value="{{$professor->id}}">{{$professor->nm_professor}}</option>
+                                          @endforeach
+                                  </select>
+                  </td>  
+                <td>
+                  <select id="materia[]_id" name="materia_id[]" class="form-control"   required="true" > 
+                      
+                  </select>      
+                <td><button type="button" class="addRow3" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
+                </tr>  
+                </tbody>
+                </table>
 
          
          
               
                   
         </div>
-          
           <div class="tab-pane fade" id="quinta" role="tabpanel" aria-labelledby="quinta-tab">
               <ul class="list-group mt-4">
-              <h1>quinta</h1>
+              <h1>Quinta</h1>
               </ul>
-          </div>
 
-          <div class="tab-pane fade" id="sexta" role="tabpanel" aria-labelledby="sexta-tab">
+
+               <table class="table table-bordered" >  
+                <tr>
+                  <th>Horário</th>
+                <th>Professor</th>
+                <th>Disciplina</th>
+                <th>Ação</th>
+                </tr>
+                <tbody id="tab4" >
+                <tr> 
+                  <td>1ª Horário</td>
+                   <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="{{$diasemana[3]->id}}">
+                   <input type="hidden" name="horario_id[]" id="horario_id[]" value="{{$horarios[0]->id}}">
+                <td>
+                <select class="custom-select" id="professor_id[]" name="professor_id[]" >
+                                    <option value="0" selected>Professor</option>
+                                          @foreach($professores as $professor )
+                                          <option value="{{$professor->id}}">{{$professor->nm_professor}}</option>
+                                          @endforeach
+                                  </select>
+                  </td>  
+                <td>
+                  <select id="materia[]_id" name="materia_id[]" class="form-control"   required="true" > 
+                      
+                  </select>              
+                  
+                <td><button type="button" class="addRow4" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
+                </tr>  
+                </tbody>
+                </table>
+
+          </div>
+          
+        <div class="tab-pane fade" id="sexta" role="tabpanel" aria-labelledby="sexta-tab">
               <ul class="list-group mt-4">
                 <h1>Sexta</h1>
               </ul>
-                         
-               <table class="table table-bordered" >  
+                <div id="">
+                <table class="table table-bordered" >  
                 <tr>
+                  <th>Horário</th>
                 <th>Professor</th>
                 <th>Disciplina</th>
                 <th>Ação</th>
                 </tr>
                 <tbody id="tab5">
                 <tr> 
-                  <?php
-                  $diasemana[2]->id;
-                  $horarios[0]->id;
-                  ?>
+                  <td>1ª Horário</td>
                 
                 <td>
                 <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="{{$diasemana[4]->id}}">
@@ -310,52 +342,39 @@ div#timelineVisita .inside {
                   </td>  
                 <td>
                 <select class="custom-select" id="materia_id[]" name="materia_id[]">
-                      <option value="0" selected>Disciplina</option>
-                          @foreach($materias as $materia )
-                       <option value="{{$materia->id}}">{{$materia->nm_materia}}</option>
-                          @endforeach
-                                    
-                  </select>                
+                  <select id="serie_id" name="materia_id[]" class="form-control"   required="true" > 
+                      
+                  </select>              
                   
-                <td><button type="button" class="addRow" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
+                <td><button type="button" class="addRow6" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
                 </tr>  
                 </tbody>
                 </table>
+
+                </div>          
+               
             </div>
         </div>
 
         <br>
 
-
+ </div>  
             
     <button type="submit" class="btn btn-primary"  >Cadastrar Horários </button>
     </form>
     <hr> 
- 
-
-
-
-  
-    </div>
-    
-
-
-
-  
-  
+    </div>  
 </main>
-
-
-  
-
 @section('post-script')
-
 <script>
 
+var mat = [];
 
- 
-    jQuery(document).ready(function ()
-    {    jQuery('select[name="seguimento_id"]').on('change',function(){
+
+
+
+ jQuery(document).ready(function (){    
+   jQuery('select[name="seguimento_id"]').on('change',function(){
                var segui_id = jQuery(this).val();
                if(segui_id)
                {
@@ -378,42 +397,140 @@ div#timelineVisita .inside {
                   $('select[name="serie_id"]').empty();
                }
             });
-    });
- 
+});
 
+    $(document).ready(function(){
+      jQuery('select[name="seguimento_id"]').on('change',function(){
+               var segui_id = jQuery(this).val();
+               if(segui_id)
+               {
+                  jQuery.ajax({
+                     url : '/turma/getMaterias/' +segui_id,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {    
+                        jQuery.each(data, function(key,value){
+                 
+                        $('select[name="materia_id[]"]').append('<option value="'+ key +'">'+ value +'</option>');
+                      
+                        });
+                     
+                        mat.push(data);
+                        console.info(mat);
+                      
+                      }
+                  });
+               }
+               else
+               {
+                  $('select[name="materia_id[]"]').empty();
+               }
+            });
+            
+            console.info('aqui'+mat);
+    });
 
    
     
-    var diaSemana ={{$diasemana[1]->id}};
-    var i={{$horarios[0]->id}};
+    
+       
+            
+               
+  
+  
+
+
+var diaSemana ={{$diasemana[1]->id}};
+var i={{$horarios[0]->id}};''
+
+
 
 $('#segunda-tab').on('click',function(){
-    diaSemana=1;
-    i+1;
-   
-    var select = document.getElementById('materia_id[]');
-	    var value = select.options[select.selectedIndex].value;
-	  console.log(value)
-    diaSemana=2;
-    i+1;  
-    if( value === 0){
-      $('.remove').parent().parent().remove();
-    }
-    console.log('dia da semana '+diaSemana+' Horário'+ i);
-   
+                                                diaSemana=1;
+                                                i=1;
+                                                $('.addRow1').on('click',function(){
+                                                    addRow();
+                                                }); 
+                                                function addRow()
+                                                {
+                                                    i=i+1;
+                                                    console.log(i);
+                                                    var tr='<tr>'+
+                                                    '<td>'+i+'º Horário</td>'+
+                                                    '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor )<option value="{{$professor->id}}">{{$professor->nm_professor}}</option>@endforeach</select></td>'+
+                                                    '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>"><option value="'+mat+'">'+mat+'</option>"></select></td>'+
+                                                    '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
+                                                      ' <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
+                                                      '  <input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
+                                                    '</tr>';
+                                                    $('#tab1').append(tr);
+                                                    console.log('dia da semana '+diaSemana+' Horário'+ i);    
+                                                    console.log(i);
+                                                  
+                                                };
+                                                $('.remove').live('click',function(){
+                                                    var last=$('tr').length;
+                                                    if(last==1){
+                                                        alert("you can not remove last row");
+                                                    }
+                                                    else{ 
+                                                        $(this).parent().parent().remove(); 
+                                                        if(i<1){
+                                                          i+1;
+                                                        }else{
+                                                          i=i-1;
+                                                        }
+                                                      }
+                                                });
+                                                console.log('dia da semana' +diaSemana+' Horário'+ i);
+                                                
+                                                
 
- });
+                                            }); 
+
+
+
 
  $('#terca-tab').on('click',function(){
-  var select = document.getElementById('materia_id[]');
-	var value = select.options[select.selectedIndex].value;
-	console.log(value)
+
     diaSemana=2;
-    i+1;  
-    if( value === 0){
-      $('.remove').parent().parent().remove();
-    }
-   
+    i=1;  
+ 
+    $('.addRow2').on('click',function(){
+        addRow();
+    }); 
+    function addRow()
+    {
+        i=i+1;
+        console.log(i);
+        var tr='<tr>'+
+          '<td>'+i+'º Horário</td>'+
+        '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor )<option value="{{$professor->id}}">{{$professor->nm_professor}}</option>@endforeach</select></td>'+
+        '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
+        '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
+          ' <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
+          '  <input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
+        '</tr>';
+        $('#tab2').append(tr);
+        console.log('dia da semana '+diaSemana+' Horário'+ i);    
+        console.log(i);
+      
+    };
+    $('.remove').live('click',function(){
+        var last=$('tr').length;
+        if(last==1){
+            alert("you can not remove last row");
+        }
+        else{ 
+             $(this).parent().parent().remove(); 
+             if(i<1){
+               i+1;
+             }else{
+              i=i-1;
+             }
+          }
+    });
     console.log('dia da semana' +diaSemana+' Horário'+ i);
     
  })
@@ -421,11 +538,42 @@ $('#segunda-tab').on('click',function(){
  $('#quarta-tab').on('click',function(){
     diaSemana=3;
     i=1;
-    console.log(diaSemana+'-'+ i);
-    if($('#vmateria').val()==0 && $('#vprofessor').val()===0){
-      $('#vmateria').remove();
-      $('#vprofessor').remove();
-    }
+    $('.addRow3').on('click',function(){
+        addRow();
+    }); 
+    function addRow()
+    {
+        i=i+1;
+        console.log(i);
+        var tr='<tr>'+
+          '<td>'+i+'º Horário</td>'+
+        '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor )<option value="{{$professor->id}}">{{$professor->nm_professor}}</option>@endforeach</select></td>'+
+        '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
+        '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
+         '<input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
+         '<input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
+        '</tr>';
+        $('#tab3').append(tr);
+        console.log('dia da semana '+diaSemana+' Horário'+ i);    
+        console.log(i);
+      
+    };
+    $('.remove').live('click',function(){
+        var last=$('tr').length;
+        if(last==1){
+            alert("you can not remove last row");
+        }
+        else{ 
+             $(this).parent().parent().remove(); 
+             if(i<1){
+               i+1;
+             }else{
+              i=i-1;
+             }
+          }
+    });
+    console.log('dia da semana' +diaSemana+' Horário'+ i);
+    
 
  })
  
@@ -433,6 +581,42 @@ $('#segunda-tab').on('click',function(){
     diaSemana=4;
     i=1;
     console.log(diaSemana+'-'+ i);
+    $('.addRow4').on('click',function(){
+        addRow();
+    }); 
+    function addRow()
+    {
+        i=i+1;
+        console.log(i);
+        var tr='<tr>'+
+          '<td>'+i+'º Horário</td>'+
+        '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor )<option value="{{$professor->id}}">{{$professor->nm_professor}}</option>@endforeach</select></td>'+
+        '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
+        '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
+         '<input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
+         '<input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
+        '</tr>';
+        $('#tab4').append(tr);
+        console.log('dia da semana '+diaSemana+' Horário'+ i);    
+      
+    };
+    $('.remove').live('click',function(){
+        var last=$('tr').length;
+        if(last==1){
+            alert("you can not remove last row");
+        }
+        else{ 
+             $(this).parent().parent().remove(); 
+             if(i<1){
+               i+1;
+             }else{
+              i=i-1;
+             }
+          }
+    });
+    console.log('dia da semana' +diaSemana+' Horário'+ i);
+    
+
    
 
  })
@@ -441,7 +625,7 @@ $('#segunda-tab').on('click',function(){
     diaSemana=5;
     i=1;
     
-    $('.addRow').on('click',function(){
+    $('.addRow6').on('click',function(){
         addRow();
     }); 
     function addRow()
@@ -450,6 +634,7 @@ $('#segunda-tab').on('click',function(){
         i=i+1;
         console.log(i);
         var tr='<tr>'+
+          '<td>'+i+'º Horário</td>'+
        
         '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor )<option value="{{$professor->id}}">{{$professor->nm_professor}}</option>@endforeach</select></td>'+
         '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
@@ -458,12 +643,15 @@ $('#segunda-tab').on('click',function(){
           ' <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
           '  <input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
         '</tr>';
-       
-      
-       console.log(i);
+    
         $('#tab5').append(tr);
         console.log('dia da semana '+diaSemana+' Horário'+ i);
         
+
+       
+      
+       console.log(i);
+      
     };
     $('.remove').live('click',function(){
         var last=$('tab5 tr').length;
@@ -476,18 +664,20 @@ $('#segunda-tab').on('click',function(){
              if(i<1){
                i+1;
              }else{
-               i--;
+               i=i-1;
              }
           }
     
     });
-   
+    console.log('dia da semana' +diaSemana+' Horário'+ i);
+
 
  })
     
 
-    
 
+
+  
 
 
 

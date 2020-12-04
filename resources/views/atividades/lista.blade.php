@@ -1,4 +1,4 @@
-@extends('layouts.paginas')
+@extends('layouts.professor')
 @section('content')
 
 <style>
@@ -29,7 +29,6 @@
         <th scope="col">Professor</th>
         <th scope="col">Seguimento </th>
         <th scope="col">Série</th>
-        
         <th scope="col">Ação</th>
         </tr>
     </thead>
@@ -41,7 +40,7 @@
             $seguimento=$atividade->find($atividade->id)->relSeguimento;
             $serie=$atividade->find($atividade->id)->relSerie;
             $evento=$atividade->find($atividade->id)->relEvento;
-          
+            
         @endphp
           
 
@@ -82,7 +81,8 @@
     $('#atividades').dataTable( {
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-            }
+            },
+            "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
         });
     });
   

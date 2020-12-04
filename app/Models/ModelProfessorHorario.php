@@ -15,6 +15,27 @@ class ModelProfessorHorario extends Model
         'diasemana_id',
         'horario_id',
         'professor_id',     
-        'materia_id',];
+        'materia_id'];
 
+    public function relHorarioTurma()
+    {
+          return $this->hasOne( 'App\Models\ModelHorarioTurma','id' ,'horarioturma_id');
+    }
+    public function relDiaSemana()
+    {
+         return $this->belongsTo( 'App\Models\ModelDiaSemana','diasemana_id',);
+    }  
+    public function relProfessor()
+    {
+        return $this->belongsTo('App\Models\ModelProfessor', 'professor_id');
+    }
+    public function relHorario()
+    {
+        return $this->belongsTo('App\Models\ModelHorario', 'horario_id');
+    }  
+    public function relMateria()
+    {
+        return $this->belongsTo('App\Models\ModelMaterias', 'materia_id');
+    }
+   
 }
