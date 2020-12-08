@@ -13,5 +13,8 @@ class ModelSeguimento extends Model
     public function relSerie(){
         return $this->belongsTo('App\Models\ModelSerie');
     }
+    public function relMateria(){
+        return $this->belongsTo('App\Models\ModelMateiras', 'seguimento_id');
+    }
   
 }

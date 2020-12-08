@@ -1,5 +1,8 @@
 @extends('layouts.professor');
 @section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 <style>
     tfoot input {
@@ -15,7 +18,7 @@
 
 <h1 class="text-center" >Lista de Professores</h1>
   <div class="text-center mt-3 mb-4">
-  <a href="{{url('professor/create')}}">
+  <a href="{{url('professor/cad')}}">
         <button class="btn btn-success">Cadastrar Professor</button>
       </a>
 

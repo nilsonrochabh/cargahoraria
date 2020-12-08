@@ -36,7 +36,8 @@ class ModelProfessor extends Model
     }
     public function relDiaSemana()
     {
-        return $this->belongsTo('App\Models\ModelDiaSemana',  'materia_id');
+        return $this->belongsTo('App\Models\ModelDiaSemana',  'diasemana_id');
     }
  
 }
+    

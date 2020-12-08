@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ModelHorarioTurma extends Model
 {
     protected $table='horarioturma';
-    protected $fillable=['seguimento_id','serie_id','turma_id','turno_id','unidade_id','usuario_id'];
+    protected $fillable=['seguimento_id','serie_id',
+                          'turma_id','turno_id','unidade_id','usuario_id'];
 
 
     public function relProfessor()
@@ -33,7 +34,7 @@ class ModelHorarioTurma extends Model
     }
     public function relTurma()
     {
-        return $this->belongsTo('App\Models\ModelTurma', 'turma_id','id');
+        return $this->belongsTo('App\Models\ModelTurma', 'turma_id' ,'id');
     }
     public function relTurno()
     {

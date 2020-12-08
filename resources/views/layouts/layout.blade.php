@@ -40,6 +40,7 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+               
                 <a class="navbar-brand" href="{{ url('/') }}">
                    <img src="{{url('assets/img/logo.png')}}" alt="Logo" width="80px" height="80px">
                 </a>
@@ -97,7 +98,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> 
 
-
+    <script src="{{url('assets/js/script.js')}}"></script>
 
     @yield('post-script')
     

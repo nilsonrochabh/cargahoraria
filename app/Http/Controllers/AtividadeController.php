@@ -52,7 +52,8 @@ class AtividadeController extends Controller
     public function index()
      {
         $atividades = $this->objAtividade->all();
-        return view('atividades/lista', compact('atividades'));
+        $usuario = Auth::user();       
+        return view('atividades/lista', compact('atividades','usuario'));
         // $professores = $this->objProfessor->all();
         // return view('atividades.index',compact('professores'));
     }
@@ -90,17 +91,17 @@ class AtividadeController extends Controller
     }
 
     public function lista()
-    {       
+    {   $usuario = Auth::user();       
         $atividades = $this->objAtividade->all();
        // $atividades->load('professor_id');
-        return view('atividade',compact('atividades'));
+        return view('atividade',compact('atividades','usuario'));
     }
     public function show($id)
     {
        
         $atividade = $this->objAtividade->find($id);
-        
-        return view('atividades/visualizar',compact('atividade',));
+        $usuario = Auth::user();       
+        return view('atividades/visualizar',compact('atividade','usuario'));
     
     }
     public function edit($id)
@@ -130,7 +131,18 @@ class AtividadeController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+        $atualizar=$this->objAtividade->where(['id'=>$id])->update([
+            'professor_id'=>$request->professor_id,
+            'seguimento_id'=>$request->segui,
+            'serie_id'=>$request->serie1,
+            'evento_id'=>$request->evento_id,
+            'hora'=>$request->hora,
+            'unidade_id'=>$request->unidade_id,
+            'justificativa'=>$request->justificativa]);
+
+            if($atualizar){
+                return redirect('atividade');
+            }
     }
 
     /**
@@ -141,39 +153,10 @@ class AtividadeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $del = $this->objAtividade->destroy($id);
+        return($del)?"sim":"não";
     }
 
-    public function search(Request $request)
-    {
-        if($request->ajax())
-        {
-            $output="";
-            $atividades=ModelProfessor::where('nm_professor','LIKE','%'.$request->search."%")->get();
-            if($atividades)
-            {
-            foreach ($atividades as $key => $ativ) {
-            $output.=
-            '<td>'.$ativ->mn_professor.'</td>'.
-            '<td>'.$ativ->nm_seguimento.'</td>'.  
-            '<td>'.$ativ->nm_serie.'</td>'.  
-            '<td>
-                <a href="atividade/'.$ativ->id.'">
-                    <button class="btn btn-dark">Vizualizar</button>
-                    
-                </a>
-    
-                <a href="">
-                    <button class="btn btn-primary">Editar</button>
-                    
-                </a>
-            </td>'
-            ;
-            }
-            return Response($output);
-        }
-        }
-    }
 
    
 }

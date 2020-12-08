@@ -5,7 +5,7 @@
 
 <div class="container">
 <div class="text-center">
-<h1 class="mb-8">@if(isset($professor))Editar Professor(a) @else Cadastrar Professor(a) @endif </h1>
+<h1 class="mb-8">Cadastrar Professor(a)  </h1>
 
    <a href="/professor">
 <button class="btn btn-success">Voltar</button>
@@ -13,17 +13,12 @@
 </div>
 
 
-@if(isset($professor))
-    <form action="{{url("professor/$professor->id")}}" name="fEdit" id="fEdit" method="post"  >@method('PUT')
-    @else
-    <form class="text-center border border-light p-5" action="{{url('professor')}}" name="fCad" id="fCad" method="post">
-    @endif
 
-  @csrf 
 
+
+<form class="text-center border border-light p-5" action="{{url('professor')}}" name="fCad" id="fCad" method="post">
+ @csrf 
     <div class="form-row mb-2">
-
-
     <div class="col-2">
            <label for="Matricula">Matricula</label>
             <input type="number"  min=1 id="matricula" name="matricula"  class="form-control" onchange="funcaoMatricula()"   value="{{$professor->matricula ??''}}" required>
@@ -31,7 +26,7 @@
         </div>
         <div class="col-7">
         <label for="nome">Nome</label>
-            <input type="text" id="nm_professor" name="nm_professor" class="form-control"   value="{{$professor->nm_professor ??''}}" required>
+            <input type="text" id="nm_professor" name="nm_professor" class="form-control"   value="" required>
         </div>
         <div class="col">
         
@@ -39,7 +34,7 @@
         </div>
         <div class="col-2">
             <label for="">Carga Horária</label>
-            <input type="text" step="1" min=1 max=60 id="carga_horaria" name="carga_horaria"  class="form-control" value="{{$professor->carga_horaria ??''}}"  required>
+            <input type="text" step="1" min=1 max=60 id="carga_horaria" name="carga_horaria"  class="form-control" value=""  required>
         </div>
 
            
@@ -53,26 +48,13 @@
      <div class="col-4">
      <div class="col">
 
-      
-            
-        
-        @php 
-        $num1=$professor->materia1_id;
-        $num2=$professor->materia2_id;
-        $num3=$professor->materia3_id;
-        //dd($num2);
-        //dd($materias)
-         
-        
-        @endphp
-      
        
 
 
    
      <label for="">Disciplina 1</label>
                       <select class="custom-select" id="materia1_id" name="materia1_id">
-                      <option {{$professor->materia1_id == 0 || $professor->materia1_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num1]->nm_materia ?? ''}} </option>
+                      <option value="0">Disciplina </option>
                       
                             @foreach($materias as $materia1_id )
                               <option value="{{$materia1_id->id}}">{{$materia1_id->nm_materia}}</option>
@@ -87,7 +69,7 @@
      <label for="">Disciplina 2</label>
                       <select class="custom-select" id="materia2_id" name="materia2_id">
                   
-                        <option {{$professor->materia2_id == 0 || $professor->materia2_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num2]->nm_materia ?? ''}} </option>
+                      <option value="0">Disciplina </option>
                   
                             @foreach($materias as $materia2_id )
                               <option value="{{$materia2_id->id}}">{{$materia2_id->nm_materia}}</option>
@@ -100,8 +82,8 @@
     <div class="col-4">
      <div class="col">
      <label for="">Disciplina 3</label>
-                      <select class="custom-select" id="materia3_id" name="materia3_id">
-                        <option {{$professor->materia3_id == 0 || $professor->materia3_id == null}} value="{{$professor->materia3_id ?? ''}}">{{$materias[$num3]->nm_materia ?? ''}} </option>
+                      <select class="custom-select disciplina" id="materia3_id" name="materia3_id">
+                      <option value="0">Disciplina </option>
                             @foreach($materias as $materia3_id )
                               <option value="{{$materia3_id->id}}">{{$materia3_id->nm_materia}}</option>
                               @endforeach
@@ -114,7 +96,7 @@
     </div>
 
     <!-- Sign up button -->
-    <input class="btn btn-info my-4 btn-block"  value="@if(isset($professor))Editar @else Cadastrar @endif"  type="submit">
+    <input class="btn btn-info my-4 btn-block"  value=" Cadastrar"  type="submit">
    
     <hr>
 
@@ -131,7 +113,7 @@ funcaoMatricula = function(){
     
 
 }
-$('.custom-select').select2({
+$('.disciplina').select2({
     
            placeholder: "Disciplina",
            allowClear: true

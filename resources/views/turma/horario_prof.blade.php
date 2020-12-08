@@ -1,12 +1,21 @@
 
-@extends('layouts.paginas');
+@extends('layouts.professor');
 @section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
 <br/>
 
 <div class="container">
-    <div class="row">
-      <h2>Cadastro de Horarios Turma</h2>      
+    <div class="text-center">
+      <h2>Horarios Turma</h2>   
+      <a href="/turma/">
+        <button class="btn btn-success">Voltar</button>
+        </a>    
       <hr />
+
+    
     </div>
   
     @foreach($horarioTurmas as $horarioturma)   
@@ -52,15 +61,13 @@
     <div class="col-12  m-auto" >   
  
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="prof">
     <thead>
         <tr>
             <th>Horário </th>
             <th>Dia da semana</th>
             <th>Professor</th>
-            <th>Matéria</th>
-          
-            
+            <th>Matéria</th>    
         </tr>
     </thead>
     <tbody>
@@ -76,8 +83,8 @@
          <tr> 
             <td> {{$horario->nm_horario}}  </td> 
             <td> {{$diasemana->nm_diasemana}}  </td> 
-             <td>  {{$professor->nm_professor}}</td> 
-             <td>  {{$materia->nm_materia}}  </td> 
+             <td>{{$professor->nm_professor}}</td> 
+             <td>{{$materia->nm_materia}}  </td> 
           
          </tr> 
        
@@ -88,4 +95,14 @@
 </div>
 </div>  
 
+
+<script src="">
+$('#prof').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+            },
+            "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
+        });
+    });
+</script>
 @endsection

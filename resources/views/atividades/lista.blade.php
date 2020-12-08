@@ -1,6 +1,14 @@
 @extends('layouts.professor')
 @section('content')
 
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+
 <style>
     tfoot input {
         width: 100%;
@@ -33,17 +41,22 @@
         </tr>
     </thead>
     <tbody>
-   
-        @foreach($atividades as $atividade)      
+      
+        @foreach($atividades as $atividade) 
+        
+        @if($atividade->unidade_id === $usuario->unidade_id)   
+        
         @php
+       
+            
             $professor=$atividade->find($atividade->id)->relProfessor;
             $seguimento=$atividade->find($atividade->id)->relSeguimento;
             $serie=$atividade->find($atividade->id)->relSerie;
             $evento=$atividade->find($atividade->id)->relEvento;
             
         @endphp
-          
-
+            
+        
     
         <tr>
            
@@ -70,13 +83,14 @@
             </a>
         </td>
         </tr>
+        @endif 
         @endforeach
     </tbody>
     </table>
 </div>
 
 <script>
-    $(document).ready(function() {
+   
     
     $('#atividades').dataTable( {
             "language": {
@@ -84,8 +98,8 @@
             },
             "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
         });
-    });
-  
+    
+ 
   
 // $(document).ready(function(){
 //     $.ajax({

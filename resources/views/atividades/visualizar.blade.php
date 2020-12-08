@@ -4,6 +4,7 @@
 
 
 <div class="mt-3 mb-4">
+    <div class="text-center">
   <a href="{{url('atividade')}}">
         <button class="btn btn-success">Voltar</button>
       </a>
@@ -11,6 +12,8 @@
 <h1 >Atividade {{$atividade->id}}</h1>
 
 </div>
+    </div>
+@csrf
 <div>
 
     @php
@@ -31,7 +34,7 @@
     <p>Justificativa  : <span class="font-weight-bold">{{$atividade->justificativa}}</span> </p>
     
     <div>
-        <a href="">
+    <a href="{{url("atividade/$atividade->id")}}" class="j-del">
             <button class="btn btn-danger">Excluir Atividade </button>
         </a>
         

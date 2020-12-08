@@ -1,4 +1,4 @@
-@extends('layouts.paginas');
+@extends('layouts.professor');
 @section('content')
 
 <br>
@@ -41,27 +41,30 @@
         </div>
       
     </div>
-    @foreach ($professor as $prof)
+    
     @php
     
-     
-     
+         $num1=$professor->materia1_id;
+         $num2=$professor->materia2_id;
+         $num3=$professor->materia3_id;
+        
+         
+      $disciplinas[] = [$materias[$num1]->{"id"}.' '.$materias[$num1]->{"nm_materia"},$materias[$num2], $materias[$num3]];
+    
   
     
- 
+     
   @endphp
-        
-    @endforeach
-    <div class="form-row mb-4">
+    
+    
+  <div class="form-row mb-4">
             <div class="col-3">
                 <div class="md-form">
                     <label for="">Disciplina</label>
                     <select class="custom-select" id="materia_id" name="materia_id">
-                    <option value="{{$professor->relMateria->id ?? ''}}">Disciplina</option>
-                          
-                          
-                           
-                          
+                        <option {{$professor->materia1_id == 0 || $professor->materia1_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num1]->nm_materia ?? ''}} </option>
+                        <option {{$professor->materia2_id == 0 || $professor->materia2_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num2]->nm_materia ?? ''}} </option>
+                        <option {{$professor->materia3_id == 0 || $professor->materia3_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num3]->nm_materia ?? ''}} </option>                                          
                     </select> 
                 </div>
             </div>
@@ -71,9 +74,7 @@
                     <label for="">Seguimento</label>
                     <select class="custom-select" id="seguimento_id" name="seguimento_id" disabled>
                 
-                    <option value="0">Seguimento</option>
-                          
-                          
+                    <option value="0">Seguimento</option>                
                           
                     </select> 
                 </div>
@@ -93,10 +94,9 @@
         </div>
         <div class="form-row mb-4">
             <div class="col">
-                <!-- First name -->
                 <div class="md-form">
                     <label for="">Dia Semana</label>
-                    <select class="custom-select" id="materia1_id" name="materia1_id">
+                    <select class="custom-select" id="" name="">
                     <option value="{{$professor->relDiaSemana->id ?? ''}}">Dia Semana</option> 
                     @foreach($diasemana as $dia )
                         <option value="{{$dia->id}}">{{$dia->nm_diasemana}}</option>
@@ -140,7 +140,7 @@
 
 
 </form>
-
+@section('post-script')
 
 <script>
 funcaoMatricula = function(){
@@ -153,5 +153,5 @@ funcaoMatricula = function(){
 
 
 </script>
-
+@endsection
 @endsection

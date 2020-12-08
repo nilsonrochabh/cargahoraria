@@ -3,20 +3,23 @@
 <main role="main" class="container">
   <div class="container">
   <div class="mt-3 mb-4">
-  <a href="{{url('atividade')}}">
-        <button class="btn btn-success">Voltar</button>
-      </a>
-  
-    <div class="row">
+    <div class="text-center">
+    
+    
     <h1 class="text-center" >@if(isset($atividade))Editar Atividade Extra Classe @else Cadastrar Atividade Extra Classe @endif</h1>
+      
+    <a href="{{url('atividade')}}">
+      <button class="btn btn-success">Voltar</button>
+    </a>
+
       <hr />
-    </div>
+  
 
-
+  </div>
   </div>
     <div class="col-12  m-auto" >
     
-    @if(isset($curso))
+    @if(isset($atividade))
     <form action="{{url("atividade/$atividade->id")}}" name="fEdit" id="fEdit" method="post"  >@method('PUT')
     @else
       <form action="{{url('atividade')}}" name="fCad" id="fCad" method="post" >
@@ -72,7 +75,7 @@
                          <input type="text" name="historico" id="historico" value="{{$atividade->historico ??''}}" disabled>
 
                          <label for="hora">Horas</label>
-                         <input type="text" name="hora" id="hora" value="{{$atividade->hora ??''}}">
+                         <input type="number" min="1" max="66" name="hora" id="hora" value="{{$atividade->hora ??''}}">
 
                          <input type="text" name="unidade_id" id="unidade_id" value="{{$usuario->unidade_id}}" hidden>
                          
@@ -85,8 +88,8 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                </div>
+                <input class="btn btn-info my-4 btn-block"  value="@if(isset($atividade))Editar @else Cadastrar @endif"  type="submit">
+              </div>
         </form>
 
 @section('post-script')

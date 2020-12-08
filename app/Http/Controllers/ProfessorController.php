@@ -47,7 +47,7 @@ class ProfessorController extends Controller
         $materias = ModelMaterias::all();
         $professores =ModelProfessor::get(); 
                
-        return view('professor/create', compact('usuario','materias','professores'));
+        return view('professor/cad', compact('usuario','materias','professores'));
     }
 
     
@@ -88,9 +88,6 @@ class ProfessorController extends Controller
         $usuario = Auth::user();
         $professor = ModelProfessor::find($id);
         $materias = ModelMaterias::get();
-        $materia1= ModelMaterias::where('id','=',$id)->get();
-        $materia2= ModelMaterias::where('id','=',$id)->get();
-        $materia3= ModelMaterias::where('id','=',$id)->get();
         $diasemana = ModelDiaSemana::get();
         $turmas=ModelTurma::get();
         $turno=ModelTurno::get();
@@ -98,8 +95,7 @@ class ProfessorController extends Controller
 
 
         return view('professor/enturmar', 
-                compact('professor','materia1','materia2',
-                'materia3','usuario','diasemana','turmas','horario','turno'));
+                compact('professor','usuario','diasemana','turmas','horario','turno','materias'));
     }
 
     public function update(Request $request, $id)
@@ -109,7 +105,11 @@ class ProfessorController extends Controller
             'nm_professor'=>$request->nm_professor,
             'unidade_id'=>$request->unidade_id,
             'carga_horaria'=>$request->carga_horaria,
-            'h_hora'=>$request->h_hora,]);
+            'h_hora'=>$request->h_hora,
+            'materia1_id'=>$request->materia1_id,
+            'materia2_id'=>$request->materia2_id,
+            'materia3_id'=>$request->materia3_id,]);
+
             if($atualizar){
                 return redirect('professor/');
             }

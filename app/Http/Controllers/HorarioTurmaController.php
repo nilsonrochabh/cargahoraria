@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TurmaRequest;
 use Illuminate\Support\Facades\Input;
 use App\Models\ModelAtividade;
 use Illuminate\Http\Request;
@@ -95,7 +96,7 @@ class HorarioTurmaController extends Controller
         $turmas=$this->objTurma->all();
         $turnos=$this->objTurno->all();
         $professores=$this->objProfessor->all();
-        $materias=$this->objMateria->all();
+        $materias=ModelMaterias::get();
         $usuario = Auth::user();     
         
         return view('turma/create', compact('seguimentos','diasemana','horarios','series','horarioTurma','turmas','turnos','professores','materias','usuario'));
@@ -147,12 +148,16 @@ class HorarioTurmaController extends Controller
     {
         //
     }
-
+    public function getSeguimento($mat_id) 
+    {        
+        $segu = DB::table("materia")->where("seguimento_id",$mat_id)->$this->objSeguimento->pluck("nm_seguimento","id");
+        return json_decode( json_encode($segu), true);
+    }
     public function getSeries($segui_id) 
-        {        
+    {        
         $series = DB::table("serie")->where("seguimento_id",$segui_id)->pluck("nm_serie","id");
         return json_encode($series);
-        }
+    }
     public function getMaterias($segui_id) 
     {        
        $materias1 = DB::table("materia")->where("seguimento_id",$segui_id)->pluck("nm_materia","id");

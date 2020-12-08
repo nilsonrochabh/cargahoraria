@@ -20,4 +20,8 @@ class ModelMaterias extends Model
     {
         return $this->belongsTo('app/Models/ModelProfessor','materia_id');
     }
+    public function relSeguimento()
+    {
+        return $this->belongsTo('app/Models/ModelSeguimento','seguimento_id');
+    }
 }

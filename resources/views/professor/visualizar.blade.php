@@ -28,26 +28,36 @@
       <th scope="row">{{$professor->matricula}}</th>
       <td>{{$professor->carga_horaria}}</td>
       <td>{{$professor->h_hora}}</td>
-      @php
-       
-       dd($materias[0]->nm_materia);    
-      @endphp
       
-
-      <td>{{$professor->materia1_id}}</td>
-      <td>{{$professor->materia2_id}}</td>
-      <td>{{$professor->materia3_id}}</td>
-      <td>
+   
+    @php 
+      $num1=$professor->materia1_id;
+      $num2=$professor->materia2_id;
+      $num3=$professor->materia3_id;
+      //dd($num1);
+      foreach ($materias as $key => $materia) {
+       while ($materia->id == $num3) {
+         dd($materia->nm_materia);
+       }
+      }
+      
+      
+      
+      @endphp
+       
      
+      <td>  @if($professor->materia1_id == 0 || $professor->materia1_id == null) {{$professor->materia1_id}} @else {{$materias[$num1]->nm_materia}} @endif </td>
+      <td>  @if($professor->materia2_id == 0 || $professor->materia2_id == null) {{$professor->materia2_id}} @else {{$materias[$num2]->nm_materia}} @endif </td>
+      <td>  @if($professor->materia3_id == 0 || $professor->materia3_id == null) {{$professor->materia3_id}} @else {{$materias[$num3]->nm_materia}} @endif </td>
+
+      <td>  
+        
       <a href="{{url("professor/$professor->id/edit")}}"">
                     <button class="btn btn-primary">Editar</button>
                         
                     </a>
 
-      <a href="{{url("professor/$professor->id/edit")}}">
-                        <button class="btn btn-danger">Excluir</button>
-                        
-                    </a>
+    
       </td>
       
     </tr>

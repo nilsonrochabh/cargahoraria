@@ -1,6 +1,12 @@
 
-@extends('layouts.paginas');
+@extends('layouts.professor');
 @section('content')
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
 <br/>
 
 <main role="main" class="container">
@@ -8,179 +14,75 @@
     <div class="text-center">
       <h2>Turma Cadastradas </h2>      
     
-      <a href="/turma/create">
+      <a href="/turma/">
         <button class="btn btn-success">Voltar</button>
         </a> 
     </div>
     <hr />
-  
-    @foreach($horarioTurmas as $horarioturma)   
+    <table class="table" id="turmas">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Turno</th>
+          <th scope="col">Turma</th>
+          <th scope="col">Seguimento </th>
+          <th scope="col">Série</th>
+         
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      @foreach($horarioTurmas as $horarioturma)   
     
-        @php
-            $id=$horarioturma->id;      
-            $seguimento=$horarioturma->find($horarioturma->id)->relSeguimento;
-            $serie=$horarioturma->find($horarioturma->id)->relSerie;
-            $turno=$horarioturma->find($horarioturma->id)->relTurno;
-            $turma=$horarioturma->find($horarioturma->id)->relTurma;
-        
-        @endphp
+      @php
+          $id=$horarioturma->id;      
+          $seguimento=$horarioturma->find($horarioturma->id)->relSeguimento;
+          $serie=$horarioturma->find($horarioturma->id)->relSerie;
+          $turno=$horarioturma->find($horarioturma->id)->relTurno;
+          $turma=$horarioturma->find($horarioturma->id)->relTurma;
+
+      @endphp
+  
       
+    <tbody>
+    
+        <tr>
+      
+          <th scope="row">{{$turno->nm_turno}}</th>
+          <td>{{$turma->nm_turma}}</td>
+          <td>{{$seguimento->nm_seguimento}}</td>
+         
+         
+          <td>
+            <a href="/turma/horario_prof/{{$horarioturma->id}}">
+              <button class="btn btn-primary">Visualizar Turma</button>
+              
+          </a>
+            </td>
+        </tr>
+        @endforeach 
+      </tbody>
+    </table>
+
+    
 
 
-    <div class="row">
-            <div class="form-group col-md-3">
-                    <select id="segui" name="segui" class="form-control" disabled>
-                        <option >{{$seguimento->nm_seguimento}}</option>                  
-                    </select>
-                    </div>
-                        <div class="form-group col-md-3">
-                    <select id="serie1" name="serie1" class="form-control" disabled> 
-                    <option selected>{{$serie->nm_serie}}</option>
-                    </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <select id="turma_id" name="turma_id" class="form-control" disabled>
-                       <option selected>{{$turma->nm_turma}}</option>                          
-                      </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <select id="turno_id" name="turno_id" class="form-control" disabled>
-                          <option selected>{{$turno->nm_turno}}</option>                          
-                      </select>
-                    </div>  
-                    <div class="form-group col-md-2">
-                      <button class=" btn btn-primary" id="button" type="submit">Visualizar Turma</button>
-                    </div>  
-                   
-      </div>
-    <br />
         
     <div class="col-12  m-auto" >   
     </div>
   </div>  
-  <script>
-    $('#button').click(function(){
-  alert('{{$id}}');
-
-})
-  </script>
-
-  @endforeach 
-
-@section('post-script')
-
-<script>
 
 
- 
-  var i = 0;
-$("#add-btn").click(function(){
-++i;
-$("#dynamicAddRemove").append('<tr><td><input type="text" name="moreFields['+i+'][professor_id]"placeholder="Professor" class="form-control" /></td><td> <select class="custom-select" name="moreFields['+i+'][disciplina_id]"require><option >Disciplina</option><option value="">oi </option></select></td><td><button type="button" class="btn btn-danger remove-tr">Remover</button></td></tr>');
-});
-$(document).on('click', '.remove-tr', function(){  
-$(this).parents('tr').remove();
-});  
 
-$(function(){
-$('form[name="fCadturma"]').submit(function(event){
-  event.preventDefault();
-  $.ajax({
-    url:"{{url('turma/cadastroHorarioProf')}}",
-    type:"post",
-    data:$(this).serialize(),
-    dataType:"json",
-    success:function(response){
-      console.log(data);
-
-      if(response.success === true){
-        //redirecionar
-           window.location.href="{{url('turma')}}";
-      }
-      else{
-        console.log('erro '+response.menssagem)
-      }
-    }
-  });
-  
-  
-});
-});
-    jQuery(document).ready(function ()
-    {
-            jQuery('select[name="segui"]').on('change',function(){
-               var segui_id = jQuery(this).val();
-               if(segui_id)
-               {
-                  jQuery.ajax({
-                     url : '/turma/getSeries/' +segui_id,
-                     type : "GET",
-                     dataType : "json",
-                     success:function(data)
-                     {
-                        console.log(data);
-                        jQuery('select[name="serie1"]').empty();
-                        jQuery.each(data, function(key,value){
-                           $('select[name="serie1"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                     }
-                  });
-               }
-               else
-               {
-                  $('select[name="serie1"]').empty();
-               }
-            });
+<script src="">
+   $(document).ready(function() {
+  $('#turmas').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+            },
+            "lengthMenu": [[25, 50, -1], [25, 50, "Todos"]]
+        });
     });
-
-
-
-
-
-    $("#nr_filhos").change(function () {
-      
-
-
-      let num = $(this).val();
-      if (num != "") {
-        $("#boxTbodyAlunoSerie").html("");
-        for (let i = 1; i <= num; i++) {
-
-
-          $("#boxTbodyAlunoSerie").append(
-            "<tr><td width='50%'><select name='seriePreinscricao" +
-                              "' class='form-control serieInsc' >" +"<option value="+professor+">"+professor+"</option>"+
-                              
-                                      
-              i +
-              
-              "' class='form-control alunoInsc' /></td><td width='50%'><select name='seriePreinscricao" +
-               
-              i +
-             
-              "' class='form-control serieInsc' > " +"<option value="+professor+">"+professor+"</option>"+
-              
-              "</select></td></tr"
-          );
-        }
-        $("#tabelaAlunosSerie").show();
-        $("#btEnviar").prop("disabled", false);
-      } else {
-        $("#tabelaAlunosSerie").hide();
-        $("#btEnviar").prop("disabled", true);
-      }
-  
-    });
-  
-
-
-
-
-
 </script>
 
-
-@endsection
 
 @endsection
 
