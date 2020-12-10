@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">
 
-                                    <a href="/turma/create" class="btn btn-primary">Cadastro de Turma</a>
+                                    <a href="/turma" class="btn btn-primary">Turmas</a>
                                 </h5>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                            <i class="fas fa-user fa-7x"></i>
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="/professor" class="btn btn-primary">Professor</a>
+                                    <a href="/professor" class="btn btn-primary">Professores(as)</a>
                                 </h5>
                             </div>
                         </div>

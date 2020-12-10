@@ -159,7 +159,7 @@
                                   </select>
                   </td>  
                 <td>
-                  <select id="materia[]_id" name="materia_id[]" class="form-control"   required="true" > 
+                  <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" > 
                     <option value="0"></option> 
                   </select>                    
                   
@@ -199,7 +199,7 @@
                                   </select>
                   </td>  
                 <td>
-                  <select id="materia[]_id" name="materia_id[]" class="form-control"   required="true" > 
+                  <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" > 
                     <option value="0"></option> 
                   </select>      
                 <td><button type="button" class="addRow3" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
@@ -244,7 +244,7 @@
                                   </select>
                   </td>  
                 <td>
-                  <select id="materia[]_id" name="materia_id[]" class="form-control"   required="true" > 
+                  <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" > 
                     <option value="0"></option> 
                   </select>              
                   
@@ -278,18 +278,14 @@
                 <select class="custom-select" id="professor_id[]" name="professor_id[]" >
                                     <option value="0" selected>Professor</option>
                                           @foreach($professores as $professor )
-
-
                                               @if($professor->unidade_id === $usuario->unidade_id)   
-
                                           <option value="{{$professor->id ?? ''}}">{{$professor->nm_professor ?? ''}}</option>
                                            @endif 
                                           @endforeach
                                   </select>
                   </td>  
                 <td>
-                <select class="custom-select" id="materia_id[]" name="materia_id[]">
-                  <select id="materia_id" name="materia_id[]" class="form-control"   required="true" > 
+                  <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" > 
                     <option value="0"></option> 
                   </select>              
                   
@@ -334,7 +330,41 @@ $('#seguimento_id').on('click',function(){
 
   
 
-var mat = [];
+var segui_id = 0
+var mat =[];
+
+$(document).ready(function(){
+      jQuery('select[name="seguimento_id"]').on('change',function(){
+               segui_id = jQuery(this).val();
+               if(segui_id)
+               {
+                  jQuery.ajax({
+                     url : '/turma/getMaterias/' +segui_id,
+                     type : "GET",
+                     dataType : "json",
+                     enctype: 'multipart/form-data',
+                     success:function(data)
+                     {    
+                      
+                        jQuery.each(data, function(key,value){
+                         
+                        $('select[id="materia_id[]"]').append('<option value="'+ key +'">'+ value +'</option>');
+                      
+                        });
+                        mat.push(data);  
+
+                      }
+                  });
+               }
+               else
+               {
+                  $('select[id="materia_id[]"]').empty();
+               }
+            
+            });
+            
+            
+    });
 
 
 
@@ -368,37 +398,7 @@ var mat = [];
 
 
    
-$(document).ready(function(){
-      jQuery('select[name="seguimento_id"]').on('change',function(){
-               var segui_id = jQuery(this).val();
-               if(segui_id)
-               {
-                  jQuery.ajax({
-                     url : '/turma/getMaterias/' +segui_id,
-                     type : "GET",
-                     dataType : "json",
-                     success:function(data)
-                     {    
-                        jQuery.each(data, function(key,value){
-                 
-                        $('select[name="materia_id[]"]').append('<option value="'+ key +'">'+ value +'</option>');
-                      
-                        });
-                        mat.push(data);  
 
-                      }
-                  });
-               }
-               else
-               {
-                  $('select[name="materia_id[]"]').empty();
-               }
-            });
-            
-            console.info('aqui'+mat);
-    });
-   
-    
 
 
 
@@ -416,6 +416,10 @@ $('#segunda-tab').on('click',function(){
   
   // str = JSON.stringify(mat.index);
   // console.log(str)
+  //var materia = mat;
+  console.log(segui_id);
+
+
 
   diaSemana=1;
   i=1;
@@ -424,32 +428,31 @@ $('#segunda-tab').on('click',function(){
  }); 
 function addRow()
 {
-                                                  i=i+1;
-                                                  console.log(i);
-                                                  var tr='<tr>'+
-                                                  '<td>'+i+'º Horário</td>'+
-                                                  '<td><select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+
-                                                  '<td><select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option> @foreach($materias as $materia )<option value="{{$materia->id }}">{{$materia->nm_materia}}</option>@endforeach</select></td></td>'+
-                                                  '<td><a href="#" class="btn btn-danger remove" id="remover"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
-                                                    ' <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
-                                                    '  <input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
-                                                  '</tr>';
-                                                  $('#tab1').append(tr);
-                                                  console.log('dia da semana '+diaSemana+' Horário'+ i);    
-                                                  console.log(i);
-                                                
-                                              };
-                                              $('body').on('click','.remove',function(){
-                                                  var last=$('tr').length;
-                                                  if(last==1){
-                                                      alert("you can not remove last row");
-                                                  }
-                                                  else{ 
-                                                      $(this).parent().parent().remove(); 
-                                                      if(i<1){
-                                                        i+1;
-                                                      }else{
-                                                        i=i-1;
+  i=i+1;
+  console.log(i);
+   var tr='<tr>'+
+   '<td>'+i+'º Horário</td>'+
+   '<td><select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+
+   '<td><select id="materia_id[]" name="materia_id[]" class="custom-select" ><option value="0"></option> </select> </td>'+
+   '<td><a href="#" class="btn btn-danger remove" id="remover"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
+   ' <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
+   '  <input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
+   '</tr>';
+    $('#tab1').append(tr);
+   console.log('dia da semana '+diaSemana+' Horário'+ i);    
+   console.log(i);
+    };
+    $('body').on('click','.remove',function(){
+     var last=$('tr').length;
+      if(last==1){
+       alert("you can not remove last row");
+      }
+      else{ 
+       $(this).parent().parent().remove(); 
+      if(i<1){
+      i+1;
+      }else{
+     i=i-1;
                                                       }
                                                     }
                                               });
@@ -520,7 +523,8 @@ function addRow()
         console.log(i);
         var tr='<tr>'+
           '<td>'+i+'º Horário</td>'+
-          '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+        '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
+          '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+        
+          '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
         '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
          '<input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
          '<input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
@@ -562,7 +566,8 @@ function addRow()
         console.log(i);
         var tr='<tr>'+
           '<td>'+i+'º Horário</td>'+
-          '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+        '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
+          '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+        
+          '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
         '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
          '<input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
          '<input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
@@ -607,7 +612,8 @@ function addRow()
         var tr='<tr>'+
           '<td>'+i+'º Horário</td>'+
        
-          '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+        '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
+          '<td>  <select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+        
+          '<td>  <select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option>@foreach($materias as $materia )<option value="{{$materia->id}}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
 
         '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
           ' <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+

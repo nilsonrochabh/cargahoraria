@@ -14,24 +14,27 @@
     <div class="text-center">
       <h2>Turma Cadastradas </h2>      
     
-      <a href="/turma/">
-        <button class="btn btn-success">Voltar</button>
+      <a href="/turma/create">
+        <button class="btn btn-success">Cadastrar Turma</button>
         </a> 
     </div>
     <hr />
     <table class="table" id="turmas">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Turno</th>
-          <th scope="col">Turma</th>
+      
           <th scope="col">Seguimento </th>
           <th scope="col">Série</th>
+          <th scope="col">Turma</th>
+          <th scope="col">Turno</th>
+          
          
           <th scope="col"></th>
         </tr>
       </thead>
+      
       @foreach($horarioTurmas as $horarioturma)   
-    
+      @if($horarioturma->unidade_id === $usuario->unidade_id)
       @php
           $id=$horarioturma->id;      
           $seguimento=$horarioturma->find($horarioturma->id)->relSeguimento;
@@ -46,18 +49,21 @@
     
         <tr>
       
-          <th scope="row">{{$turno->nm_turno}}</th>
-          <td>{{$turma->nm_turma}}</td>
           <td>{{$seguimento->nm_seguimento}}</td>
-         
+          <td>{{$serie->nm_serie}}</td>
+          <td>{{$turma->nm_turma}}</td>
+          <th scope="row">{{$turno->nm_turno}}</th>
+             
          
           <td>
             <a href="/turma/horario_prof/{{$horarioturma->id}}">
               <button class="btn btn-primary">Visualizar Turma</button>
               
           </a>
+          
             </td>
         </tr>
+        @endif
         @endforeach 
       </tbody>
     </table>

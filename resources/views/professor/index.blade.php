@@ -33,7 +33,7 @@
         <th scope="col">Matricula</th>
         <th scope="col">Nome</th>
        
-        <th scope="col">Carga Horária</th>
+        <th scope="col">Carga Horária Vigente</th>
          <th scope="col">Ação</th>
         </tr>
     </thead>
@@ -53,10 +53,7 @@
                 <td>
                     <a href="{{url("professor/$professor->id")}}">
                         <button class="btn btn-dark">Vizualizar</button>
-                    <a href="{{url("professor/$professor->id/enturmar")}}">
-                        <button class="btn btn-warning">Enturmar</button>
-                        
-                    </a>
+                   
                 </td>
                 </tr>
             @endif

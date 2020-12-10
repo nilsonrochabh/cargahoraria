@@ -15,7 +15,7 @@
   <thead>
     <tr>
       <th scope="col">Matricula</th>
-      <th scope="col">Carga Horária</th>
+      <th scope="col">Carga Horária Vigente</th>
       <th scope="col">Histórico de Horas</th>
       <th scope="col">Disciplina 1</th>
       <th scope="col">Disciplina 2</th>
@@ -36,19 +36,25 @@
       $num3=$professor->materia3_id;
       //dd($num1);
       foreach ($materias as $key => $materia) {
-       while ($materia->id == $num3) {
-         dd($materia->nm_materia);
+       if ($materia->id == $num3) {
+         $mat3 = $materia->nm_materia;
+       }
+       if ($materia->id == $num2) {
+         $mat2 = $materia->nm_materia;
+       }
+       if ($materia->id == $num1) {
+         $mat1 = $materia->nm_materia;
        }
       }
-      
+      //dd($mat1)
       
       
       @endphp
        
      
-      <td>  @if($professor->materia1_id == 0 || $professor->materia1_id == null) {{$professor->materia1_id}} @else {{$materias[$num1]->nm_materia}} @endif </td>
-      <td>  @if($professor->materia2_id == 0 || $professor->materia2_id == null) {{$professor->materia2_id}} @else {{$materias[$num2]->nm_materia}} @endif </td>
-      <td>  @if($professor->materia3_id == 0 || $professor->materia3_id == null) {{$professor->materia3_id}} @else {{$materias[$num3]->nm_materia}} @endif </td>
+      <td> {{$mat1}} </td>
+      <td>{{$mat2}}</td>
+      <td>{{$mat3}}</td>
 
       <td>  
         
@@ -57,7 +63,7 @@
                         
                     </a>
 
-    
+                   
       </td>
       
     </tr>

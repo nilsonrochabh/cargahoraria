@@ -148,11 +148,11 @@ class HorarioTurmaController extends Controller
     {
         //
     }
-    public function getSeguimento($mat_id) 
-    {        
-        $segu = DB::table("materia")->where("seguimento_id",$mat_id)->$this->objSeguimento->pluck("nm_seguimento","id");
-        return json_decode( json_encode($segu), true);
-    }
+     public function getSeguimento($mat_id) 
+     {        
+         $segu = DB::table("seguimento")->where("id",$mat_id)->pluck("nm_seguimento","id");
+         return json_decode( json_encode($segu), true);
+     }
     public function getSeries($segui_id) 
     {        
         $series = DB::table("serie")->where("seguimento_id",$segui_id)->pluck("nm_serie","id");
@@ -174,6 +174,10 @@ class HorarioTurmaController extends Controller
        $json = $mat->toJson();
        return $json;
     }
+    public function retorna_horarios($horarioturma_id){
+        $tudo=DB::table("horarioturmaprofessor")->where("horarioturma_id",$horarioturma_id)->get(); 
+        return json_encode($tudo);
+     }
 
     /**
      * Show the form for editing the specified resource.
@@ -183,13 +187,41 @@ class HorarioTurmaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $horarioTurma=ModelHorarioTurma::find($id);
+        $horarioProfessores=ModelProfessorHorario::all();
+        $seguimentos = $this->objSeguimento->all();
+        $series =$this->objSerie->all();
+        $diasemanas =$this->objDiaSemana->all();
+        $horarios=$this->objHorario->all();
+        $turmas=$this->objTurma->all();
+        $turnos=$this->objTurno->all();
+        $professores=$this->objProfessor->all();
+        $materias=ModelMaterias::get();
+        $usuario = Auth::user();     
+        
+        return view('turma/editar', compact('seguimentos','diasemanas','horarios','series','horarioTurma','turmas','turnos','professores','materias','usuario','horarioProfessores'));
     }
 
   
     public function update(Request $request, $id)
     {
         //
+    }
+    public function cadedit(Request $request){
+
+        $horarioTurmas=ModelHorarioTurma::all();
+        $horarioProfessores=ModelProfessorHorario::all();
+        $seguimentos = $this->objSeguimento->all();
+        $series =$this->objSerie->all();
+        $diasemanas =$this->objDiaSemana->all();
+        $horarios=$this->objHorario->all();
+        $turmas=$this->objTurma->all();
+        $turnos=$this->objTurno->all();
+        $professores=$this->objProfessor->all();
+        $materias=ModelMaterias::get();
+        $usuario = Auth::user();     
+        
+        return view('turma/cadedit', compact('seguimentos','diasemanas','horarios','series','horarioTurmas','turmas','turnos','professores','materias','usuario','horarioProfessores'));
     }
 
    

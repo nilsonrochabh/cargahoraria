@@ -15,26 +15,23 @@
 
 
 @if(isset($professor))
-    <form action="{{url("professor/$professor->id")}}" name="fEdit" id="fEdit" method="post"  >@method('PUT')
+    <form action="{{url("professor/professorturma")}}" name="fEdit" id="fEdit" method="post" >
     @else
-    <form class="text-center border border-light p-5" action="{{url('professor')}}" name="fCad" id="fCad" method="post">
+    <form class="text-center border border-light p-5" action="{{url('professor/professorturma')}}" name="fCad" id="fCad" method="post">
     @endif
 
   @csrf 
     <div class="form-row mb-4">
         <div class="col-2">
              <label for="Matricula">Matricula</label>
-                <input type="number"  min=1 id="matricula" name="matricula"  class="form-control" onchange="funcaoMatricula()"   value="{{$professor->matricula ??''}}" required>
-                <input type="text" id="id" name="id" class="form-control" value=""   hidden>
+                <input type="number"  min=1 id="matricula" name="matricula"  class="form-control" onchange="funcaoMatricula()"   value="{{$professor->matricula ??''}}" disabled="">
+        <input type="text" id="professor_id" name="professor_id" class="form-control" value="{{$professor->id}}"   hidden>
         </div>
         <div class="col-7">
             <label for="nome">Nome</label>
-                <input type="text" id="nm_professor" name="nm_professor" class="form-control"   value="{{$professor->nm_professor ??''}}" required>
+                <input type="text" id="nm_professor" name="nm_professor" class="form-control"   value="{{$professor->nm_professor ??''}}" disabled="">
         </div>
-         <div class="col-3">
-                <label for="">Carga Horária</label>
-                <input type="text" step="1" min=1 max=60 id="carga_horaria" name="carga_horaria"  class="form-control" value="{{$professor->carga_horaria ??''}}"  required>
-         </div>
+      
         <div class="col">
         
                 <input type="text" id="unidade_id" name="unidade_id" class="form-control" value="{{$usuario->unidade_id}}"   hidden>
@@ -42,53 +39,61 @@
       
     </div>
     
-    @php
-    
-         $num1=$professor->materia1_id;
-         $num2=$professor->materia2_id;
-         $num3=$professor->materia3_id;
-        
-         
-      $disciplinas[] = [$materias[$num1]->{"id"}.' '.$materias[$num1]->{"nm_materia"},$materias[$num2], $materias[$num3]];
-    
-  
-    
+    @php 
      
-  @endphp
-    
-    
+    $num1=$professor->materia1_id;
+    $num2=$professor->materia2_id;
+    $num3=$professor->materia3_id;
+    //dd($num1);
+    foreach ($materias as $key => $materia) {
+       
+     if ($materia->id == $num3) {
+         $seg_id = $materia->seguimento_id;
+         $mat3 = $materia;
+         
+     }
+     if ($materia->id == $num2) {
+        $seg_id = $materia->seguimento_id;
+        $mat2 = $materia;         
+        
+     }
+     if ($materia->id == $num1) {
+        $seg_id = $materia->seguimento_id;
+       $mat1 = $materia;
+       
+     }
+     
+    }    
+    @endphp    
   <div class="form-row mb-4">
             <div class="col-3">
                 <div class="md-form">
                     <label for="">Disciplina</label>
                     <select class="custom-select" id="materia_id" name="materia_id">
-                        <option {{$professor->materia1_id == 0 || $professor->materia1_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num1]->nm_materia ?? ''}} </option>
-                        <option {{$professor->materia2_id == 0 || $professor->materia2_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num2]->nm_materia ?? ''}} </option>
-                        <option {{$professor->materia3_id == 0 || $professor->materia3_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num3]->nm_materia ?? ''}} </option>                                          
+                         <option value="0"> </option> 
+                    <option value="{{$professor->materia1_id ?? '' }}" dado="{{$mat1->seguimento_id}}">{{$mat1->nm_materia ?? ''}}  </option>
+                        <option value="{{$professor->materia2_id ?? ''}}" dado="{{$mat2->seguimento_id}}">{{$mat2->nm_materia ?? ''}} </option>
+                        <option value="{{$professor->materia3_id ?? ''}}" dado="{{$mat3->seguimento_id}}">{{$mat3->nm_materia ?? ''}} </option>
+
                     </select> 
                 </div>
             </div>
-            <div class="col">
-                <!-- Last name -->
+            <div class="col-3">
                 <div class="md-form">
                     <label for="">Seguimento</label>
-                    <select class="custom-select" id="seguimento_id" name="seguimento_id" disabled>
-                
-                    <option value="0">Seguimento</option>                
-                          
+                    <select class="custom-select" id="seguimento_id" name="seguimento_id">
+                        <option value=""> </option>
                     </select> 
                 </div>
-            
-            </div>       
-            <div class="md-form">
+            </div>
            
-                <label for="">Série</label>
-                <select class="custom-select" id="materia2_id" name="materia2_id" disabled>
-            
-                <option value="0">Série</option>  
-                      
-                </select> 
-        
+            <div class="col-3">
+                <div class="md-form">
+                    <label for="">Série</label>
+                    <select class="custom-select" id="serie_id" name="serie_id">
+                        <option value=""> </option>
+                    </select> 
+                </div>
             </div>
             
         </div>
@@ -96,13 +101,13 @@
             <div class="col">
                 <div class="md-form">
                     <label for="">Dia Semana</label>
-                    <select class="custom-select" id="" name="">
-                    <option value="{{$professor->relDiaSemana->id ?? ''}}">Dia Semana</option> 
+                    <select class="custom-select" id="diasemana_id" name="diasemana_id">
+                    <option value="0">Dia Semana</option> 
                     @foreach($diasemana as $dia )
                         <option value="{{$dia->id}}">{{$dia->nm_diasemana}}</option>
                     @endforeach  
                     </select> 
-                  
+                
                 </div>
             </div>
             <div class="col">
@@ -129,6 +134,7 @@
                       
                 </select> 
             </div>
+        <input type="hidden" name="usuario_id" id="usuario_id" value="{{$usuario->id}}">
             
         </div>
 
@@ -138,17 +144,79 @@
     <hr>
 
 
-
+    
 </form>
 @section('post-script')
 
+
+
 <script>
+
+
+
 funcaoMatricula = function(){
     var mat =$('#matricula').val();
     $('#id').val(mat);
     
 
 }
+
+jQuery(document).ready(function (){    
+   jQuery('select[name="materia_id"]').on('change',function(){
+         var mat_id = $(this).find(':selected').attr('dado');
+                 //console.log('valor', mat_id);
+                    
+              //console.info(mat_id);             
+               if(mat_id)
+               {
+                  jQuery.ajax({
+                     url : '/turma/getSeguimento/' +mat_id,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        //console.log(data);
+                        jQuery('select[name="seguimento_id"]').empty();
+                        jQuery.each(data, function(key,value){
+                           $('select[name="seguimento_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="seguimento_id"]').empty();
+               }
+            });
+
+});
+jQuery(document).ready(function (){    
+   jQuery('select[name="seguimento_id"]').on('click',function(){
+               var segui_id = jQuery(this).val();
+               console.log("aqui "+ segui_id);
+               if(segui_id)
+               {
+                  jQuery.ajax({
+                     url : '/turma/getSeries/' +segui_id,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        console.log(data);
+                        jQuery('select[name="serie_id"]').empty();
+                        jQuery.each(data, function(key,value){
+                           $('select[name="serie_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="serie_id"]').empty();
+               }
+            });
+
+});
 
 
 

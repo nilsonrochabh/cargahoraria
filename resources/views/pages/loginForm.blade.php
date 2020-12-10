@@ -36,9 +36,8 @@
             <label for="exampleInputEmail1">Escolha sua unidade</label>
             <select class="form-control" id="unidade" name="unidade" required="">
                 <option value=""></option>
-                                      <optgroup label="DF">                                                                                                                          <option value="2">Escola Salesiana Brasília</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <option value="11">Escola Salesiana São Domingos Sávio</option>
-                                                                                                                                                                      </optgroup> 
+                                      <optgroup label="DF">                                                                                                                          <option value="2">Escola Salesiana Brasília</option>                                                                                                                                                                                                                                                                                                                                                                                              <option value="11">Escola Salesiana São Domingos Sávio</option>
+                                     </optgroup> 
                                       <optgroup label="ES">
                                      <option value="6">Colégio Salesiano Jardim Camburi</option>
                                      <option value="7">Colégio Salesiano Nossa Senhora da Vitória</option>
@@ -53,7 +52,7 @@
                                     <optgroup label="RJ">
                                     <option value="4">Colégio Salesiano de Rocha Miranda</option>
                                     <option value="8">Colegio Salesiano Região Oceânica</option>
-                                    <option value="9">Colégio Salesiano Santa Rosa</option>
+                                    <option value="20">Colégio Salesiano Santa Rosa</option>
                                     <option value="10">Colégio Salesiano Jacarezinho</option>
                                     <option value="12">Instituto Dom Bosco</option>
                                     <option value="13">Instituto São José</option>

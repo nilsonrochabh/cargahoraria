@@ -42,7 +42,7 @@
                     <option selected>{{$serie->nm_serie}}</option>
                     </select>
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-1">
                       <select id="turma_id" name="turma_id" class="form-control" disabled>
                        <option selected>{{$turma->nm_turma}}</option>                          
                       </select>
@@ -52,6 +52,10 @@
                           <option selected>{{$turno->nm_turno}}</option>                          
                       </select>
                     </div>
+                    <div class="form-group col-md-2">
+                        <a href="/turma/{{$horarioturma->id}}/edit">
+                            <button class="btn btn-primary"> Editar</button></a>
+                     </div>
             
     </div>
     <br />
@@ -64,10 +68,11 @@
 <table class="table table-bordered" id="prof">
     <thead>
         <tr>
-            <th>Horário </th>
+           
             <th>Dia da semana</th>
-            <th>Professor</th>
+            <th>Horário </th>
             <th>Matéria</th>    
+            <th>Professor</th>
         </tr>
     </thead>
     <tbody>
@@ -81,10 +86,10 @@
             //dd($materia->nm_materia)
             @endphp
          <tr> 
-            <td> {{$horario->nm_horario}}  </td> 
             <td> {{$diasemana->nm_diasemana}}  </td> 
-             <td>{{$professor->nm_professor}}</td> 
+            <td> {{$horario->nm_horario}}  </td>       
              <td>{{$materia->nm_materia}}  </td> 
+             <td>{{$professor->nm_professor}}</td> 
           
          </tr> 
        
@@ -95,14 +100,16 @@
 </div>
 </div>  
 
-
-<script src="">
-$('#prof').dataTable( {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
-            },
-            "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
+@section('post-script')
+<script>
+    $('#prof').dataTable( {
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
+                },
+                "lengthMenu": [[25, 50, -1], [25, 50, "All"]]
+            });
         });
-    });
-</script>
+    </script> 
+@endsection
+
 @endsection

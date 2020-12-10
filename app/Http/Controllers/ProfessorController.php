@@ -9,6 +9,7 @@ use App\Models\ModelUnidade;
 use App\Models\ModelMaterias;
 use App\Models\ModelHorarioTurma;
 use App\Models\ModelDiaSemana;
+use App\Models\ModelEnturmarProfessor;
 use App\Models\ModelHorario;
 use App\Models\ModelSerie;
 use App\Models\ModelSeguimento;
@@ -92,10 +93,38 @@ class ProfessorController extends Controller
         $turmas=ModelTurma::get();
         $turno=ModelTurno::get();
         $horario=Modelhorario::get();
-
-
         return view('professor/enturmar', 
                 compact('professor','usuario','diasemana','turmas','horario','turno','materias'));
+    }
+    public function professorturma(Request $request){
+        $cadastro = ModelEnturmarProfessor::create([
+            'professor_id'=>$request->professor_id,
+            'unidade_id'=>$request->unidade_id,
+            'materia_id'=>$request->materia_id,
+            'seguimento_id'=>$request->seguimento_id,
+            'serie_id'=>$request->serie_id,
+            'diasemana_id'=>$request->diasemana_id,
+            'turma_id'=>$request->turma_id,
+            'turno_id'=>$request->turno_id,
+            'usuario_id'=>$request->usuario_id,]);
+            if($cadastro){
+                return redirect('professor/listaturma');
+            }
+    }
+    public function listaprofessor(){
+        $usuario = Auth::user();
+        $professor = ModelProfessor::all();
+        $materias = ModelMaterias::get();
+        $diasemana = ModelDiaSemana::get();
+        $turmas=ModelTurma::get();
+        $turno=ModelTurno::get();
+        $horario=Modelhorario::get();
+        $seguimento=ModelSeguimento::get();
+        $serie=ModelSerie::get();
+
+        return view('professor/listaturma', 
+                compact('professor','usuario','diasemana','turmas','horario','turno','materias','seguimento','serie'));
+
     }
 
     public function update(Request $request, $id)

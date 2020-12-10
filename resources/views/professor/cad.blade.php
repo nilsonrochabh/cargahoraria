@@ -33,7 +33,7 @@
             <input type="text" id="unidade_id" name="unidade_id" class="form-control" value="{{$usuario->unidade_id}}"   hidden>
         </div>
         <div class="col-2">
-            <label for="">Carga Horária</label>
+            <label for="">Carga Horária Vigente</label>
             <input type="text" step="1" min=1 max=60 id="carga_horaria" name="carga_horaria"  class="form-control" value=""  required>
         </div>
 

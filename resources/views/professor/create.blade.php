@@ -38,7 +38,7 @@
             <input type="text" id="unidade_id" name="unidade_id" class="form-control" value="{{$usuario->unidade_id}}"   hidden>
         </div>
         <div class="col-2">
-            <label for="">Carga Horária</label>
+            <label for="">Carga Horária Vigente</label>
             <input type="text" step="1" min=1 max=60 id="carga_horaria" name="carga_horaria"  class="form-control" value="{{$professor->carga_horaria ??''}}"  required>
         </div>
 
@@ -57,13 +57,26 @@
             
         
         @php 
-        $num1=$professor->materia1_id;
-        $num2=$professor->materia2_id;
-        $num3=$professor->materia3_id;
-        //dd($num2);
-        //dd($materias)
-         
-        
+     
+      $num1=$professor->materia1_id;
+      $num2=$professor->materia2_id;
+      $num3=$professor->materia3_id;
+      //dd($num1);
+      foreach ($materias as $key => $materia) {
+       if ($materia->id == $num3) {
+         $mat3 = $materia->nm_materia;
+       }
+       if ($materia->id == $num2) {
+         $mat2 = $materia->nm_materia;
+       }
+       if ($materia->id == $num1) {
+         $mat1 = $materia->nm_materia;
+       }
+      }
+      //dd($mat1)
+      
+      
+     
         @endphp
       
        
@@ -72,7 +85,7 @@
    
      <label for="">Disciplina 1</label>
                       <select class="custom-select" id="materia1_id" name="materia1_id">
-                      <option {{$professor->materia1_id == 0 || $professor->materia1_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num1]->nm_materia ?? ''}} </option>
+                      <option value="{{$professor->materia1_id ?? ''}}">{{$mat1 ?? ''}} </option>
                       
                             @foreach($materias as $materia1_id )
                               <option value="{{$materia1_id->id}}">{{$materia1_id->nm_materia}}</option>
@@ -87,7 +100,7 @@
      <label for="">Disciplina 2</label>
                       <select class="custom-select" id="materia2_id" name="materia2_id">
                   
-                        <option {{$professor->materia2_id == 0 || $professor->materia2_id == null}} value="{{$professor->materia1_id ?? ''}}">{{$materias[$num2]->nm_materia ?? ''}} </option>
+                        <option value="{{$professor->materia2_id ?? ''}}">{{$mat2 ?? ''}} </option>
                   
                             @foreach($materias as $materia2_id )
                               <option value="{{$materia2_id->id}}">{{$materia2_id->nm_materia}}</option>
@@ -101,7 +114,7 @@
      <div class="col">
      <label for="">Disciplina 3</label>
                       <select class="custom-select" id="materia3_id" name="materia3_id">
-                        <option {{$professor->materia3_id == 0 || $professor->materia3_id == null}} value="{{$professor->materia3_id ?? ''}}">{{$materias[$num3]->nm_materia ?? ''}} </option>
+                        <option value="{{$professor->materia3_id ?? ''}}">{{$mat3 ?? ''}} </option>
                             @foreach($materias as $materia3_id )
                               <option value="{{$materia3_id->id}}">{{$materia3_id->nm_materia}}</option>
                               @endforeach

@@ -14,11 +14,11 @@ class ModelHorarioTurma extends Model
 
     public function relProfessor()
     {
-        return $this->HasMany('App\Models\ModelProfessor', 'id','professor_id');
+        return $this->belongsTo('App\Models\ModelProfessor', 'id','professor_id');
     }
     public function relDiaSemana()
     {
-        return $this->HasMany('App\Models\ModelDiaSemana', 'diasemana_id');
+        return $this->HasMany('App\Models\ModelDiaSemana', 'id','diasemana_id');
     }
     public function relHorario()
     {
