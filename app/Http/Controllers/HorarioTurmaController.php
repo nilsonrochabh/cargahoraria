@@ -56,7 +56,7 @@ class HorarioTurmaController extends Controller
     {
         $seguimentos = $this->objSeguimento->all();
         $series =$this->objSerie->all();
-        $diasemana =$this->objDiaSemana->all();
+        $diasemana =ModelDiaSemana::orderBy('id', 'asc')->get();
         $horarios=$this->objHorario->all();
         $horarioProfessores=ModelProfessorHorario::get();
         $horarioTurmas=$this->objHoraTurma->get();
@@ -71,11 +71,13 @@ class HorarioTurmaController extends Controller
     }
 
     public function horarioProfessores($id){
-        $horarioProfessores=ModelProfessorHorario::where('horarioturma_id','=',$id)->get();
-        $horarioProfessores=ModelProfessorHorario::where('horarioturma_id','=',$id)->get();
+        $horarioProfessores=ModelProfessorHorario::where('horarioturma_id','=',$id)
+                ->orderBy('diasemana_id','asc')
+                ->orderBy('horario_id','asc')->get();
         $seguimentos = $this->objSeguimento->all();
         $series =$this->objSerie->all();
-        $diasemana =$this->objDiaSemana->all();
+      
+        $diasemanas =ModelDiaSemana::orderBy('id', 'asc')->get();
         $horarios=$this->objHorario->all();
         $horarioTurmas=ModelHorarioTurma::where('id','=',$id)->get();
         $turmas=$this->objTurma->all();
@@ -83,14 +85,14 @@ class HorarioTurmaController extends Controller
         $professores=$this->objProfessor->all();
         $materias=$this->objMateria->all();
         $usuario = Auth::user(); 
-        return view('turma/horario_prof',compact('horarioProfessores' ,'seguimentos','diasemana','horarios','series'
+        return view('turma/horario_prof',compact('horarioProfessores' ,'seguimentos','diasemanas','horarios','series'
         ,'horarioTurmas','turmas','turnos','professores','materias','usuario'));
     }
     public function create()
     {
         $seguimentos = $this->objSeguimento->all();
         $series =$this->objSerie->all();
-        $diasemana =$this->objDiaSemana->all();
+        $diasemana =ModelDiaSemana::orderBy('id', 'asc')->get();
         $horarios=$this->objHorario->all();
         $horarioTurma=$this->objHoraTurma->all();
         $turmas=$this->objTurma->all();
@@ -137,6 +139,7 @@ class HorarioTurmaController extends Controller
           );
           ModelProfessorHorario::insert($dados2);
       }
+    
     }
     return redirect()->route('turma.index')->with('sucess','Dados Cadastrados com Sucesso');
     //return $request;
@@ -174,9 +177,27 @@ class HorarioTurmaController extends Controller
        $json = $mat->toJson();
        return $json;
     }
-    public function retorna_horarios($horarioturma_id){
-        $tudo=DB::table("horarioturmaprofessor")->where("horarioturma_id",$horarioturma_id)->get(); 
-        return json_encode($tudo);
+    public function retorna_horarios($id){
+
+        $tudo=DB::table("horarioturmaprofessor")->where("id",$id)->get(); 
+        $dadosturma = DB::table("horarioturma")->get();
+        return json_encode($tudo,$dadosturma);
+     }
+     public function retorna_editahorario($id){
+
+        $horarioTurmas=ModelHorarioTurma::all();
+        $horarioProfessores=ModelProfessorHorario::all();
+        $seguimentos = $this->objSeguimento->all();
+        $series =$this->objSerie->all();
+        $diasemanas =ModelDiaSemana::orderBy('id', 'asc')->get();
+        $horarios=$this->objHorario->all();
+        $turmas=$this->objTurma->all();
+        $turnos=$this->objTurno->all();
+        $professores=$this->objProfessor->all();
+        $materias=ModelMaterias::get();
+        $usuario = Auth::user();     
+        
+        return view('turma/cadedit', compact('seguimentos','diasemanas','horarios','series','horarioTurmas','turmas','turnos','professores','materias','usuario','horarioProfessores'));
      }
 
     /**
@@ -187,11 +208,11 @@ class HorarioTurmaController extends Controller
      */
     public function edit($id)
     {
-        $horarioTurma=ModelHorarioTurma::find($id);
+        $horarioTurma=ModelHorarioTurma::with('relProfessor', 'relDiaSemana','relHorario','relTurno','relSeguimento','relSerie','relTurma','relHorario', 'relProfessorHorario')->find($id);
         $horarioProfessores=ModelProfessorHorario::all();
         $seguimentos = $this->objSeguimento->all();
         $series =$this->objSerie->all();
-        $diasemanas =$this->objDiaSemana->all();
+        $diasemanas =ModelDiaSemana::orderBy('id', 'asc')->get();
         $horarios=$this->objHorario->all();
         $turmas=$this->objTurma->all();
         $turnos=$this->objTurno->all();
@@ -199,21 +220,42 @@ class HorarioTurmaController extends Controller
         $materias=ModelMaterias::get();
         $usuario = Auth::user();     
         
+        
         return view('turma/editar', compact('seguimentos','diasemanas','horarios','series','horarioTurma','turmas','turnos','professores','materias','usuario','horarioProfessores'));
     }
 
   
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){    
+      
+        
     }
+  
+
+    public function updatehorario(Request $request){  
+        $id = $request->horarioturma_id;
+        $cadastro = $this->objProfessorHorario->create([
+        'horarioturma_id'=>$request->horarioturma_id,
+        'professor_id'=>$request->professor_id,
+        'diasemana_id'=>$request->diasemana_id,
+        'horario_id'=>$request->horario_id,
+        'materia_id'=>$request->materia_id,
+        ]);
+        if($cadastro){
+            return redirect('/turma');
+        
+       }
+    }
+    
+    
+    //return $dados;
+    
     public function cadedit(Request $request){
 
         $horarioTurmas=ModelHorarioTurma::all();
         $horarioProfessores=ModelProfessorHorario::all();
         $seguimentos = $this->objSeguimento->all();
         $series =$this->objSerie->all();
-        $diasemanas =$this->objDiaSemana->all();
+        $diasemanas =ModelDiaSemana::orderBy('id', 'asc')->get();
         $horarios=$this->objHorario->all();
         $turmas=$this->objTurma->all();
         $turnos=$this->objTurno->all();
@@ -227,7 +269,8 @@ class HorarioTurmaController extends Controller
    
     public function destroy($id)
     {
-        //
+        $del = ModelHorarioTurma::destroy($id);
+        return($del)?"sim":"não";
     }
     public function cadprof()
     {

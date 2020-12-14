@@ -22,7 +22,7 @@
           
       @endif	
       <span class='msg-erro msg-nome'></span>
-        <form name="fCad" id="fCad" method="post" action="{{url('turma')}}" >
+        <form name="fCad" id="fCad" method="post" action="{{url('turma')}}" onsubmit=" return valida_form() " >
         {{csrf_field()}}
             <div class="row">
        
@@ -68,8 +68,8 @@
     <hr>
     <input type="hidden" name="unidade_id" value="{{$usuario->unidade_id}}">       
             
-            <!-- fazer o comparativo para saber usuario-->
-            <input type="hidden" name="usuario_id" value="{{$usuario->id}}">              
+    <!-- fazer o comparativo para saber usuario-->
+    <input type="hidden" name="usuario_id" value="{{$usuario->id}}">              
     <div class="col-lg-12">
        <ul class="nav-timeline nav nav-pills" id="myTab" role="tablist">
             <li class="nav-item">
@@ -112,7 +112,7 @@
                    <input type="hidden" name="horario_id[]" id="horario_id[]" value="{{$horarios[0]->id}}">
 
                 <select class="custom-select" id="professor_id[]" name="professor_id[]" >
-                                    <option value="0" selected>Professor</option>
+                                    <option value="" selected>Professor</option>
                                           @foreach($professores as $professor )
                                        
                                           @if($professor->unidade_id === $usuario->unidade_id)   
@@ -123,7 +123,7 @@
                                   </select>
                   </td>  
                 <td>
-                  <select id="materia_id[]" name="materia_id[]" class="form-control" required="true" > <option value="0"></option> </select>                    
+                  <select id="materia_id[]" name="materia_id[]" class="form-control" required="true" > <option value=""></option> </select>                    
                 <td><button type="button" class="addRow1" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
                 </tr>  
                 </tbody>
@@ -147,8 +147,9 @@
                    <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="{{$diasemana[1]->id}}">
                    <input type="hidden" name="horario_id[]" id="horario_id[]" value="{{$horarios[0]->id}}">
                 <td>
-                <select class="custom-select" id="professor_id[]" name="professor_id[]" >
-                                    <option value="0" selected>Professor</option>
+                <select class="custom-select" id="professor_id[]" name="professor_id[]" data-required="true" >
+                                    <option value="0" selected="" disabled="">Professor</option>
+                           
                                           @foreach($professores as $professor )
                                          
                                           @if($professor->unidade_id === $usuario->unidade_id)   
@@ -159,8 +160,8 @@
                                   </select>
                   </td>  
                 <td>
-                  <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" > 
-                    <option value="0"></option> 
+                  <select id="materia_id[]" name="materia_id[]" class="form-control"   data-required="true" > 
+                    <option value="0" selected="" class="required" disabled="">Materia</option>
                   </select>                    
                   
                 <td><button type="button" class="addRow2" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
@@ -312,7 +313,30 @@
 
 
 @section('post-script')
+
 <script>
+
+$('#fCad').on('submit', function (e) {
+  $.each($('input[data-required="true"]'),function(){
+    if(!this.value || this.value == ''){
+      $(this).css('border','red 1px solid');
+      alert('Preencha os campos corretamente!');
+      e.preventDefault();
+      return false;
+    }
+  });
+});
+
+
+function valida_form (){
+if(document.getElementById("professor_id[]").value == "" && document.getElementById("materia_id[]").value == ""){
+alert('Por favor, preencha o campo');
+document.getElementById("professor_id[]").focus();
+return false
+}
+}
+
+
 $('#seguimento_id').on('click',function(){
   var prof = $(('select[name="professor_id[]"]')).val();
   if(prof == 0 ){
@@ -419,6 +443,7 @@ $('#segunda-tab').on('click',function(){
   //var materia = mat;
   console.log(segui_id);
 
+   
 
 
   diaSemana=1;
@@ -433,7 +458,7 @@ function addRow()
    var tr='<tr>'+
    '<td>'+i+'º Horário</td>'+
    '<td><select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+
-   '<td><select id="materia_id[]" name="materia_id[]" class="custom-select" ><option value="0"></option> </select> </td>'+
+   '<td><select class="custom-select" id="materia_id[]" name="materia_id[]" ><option value="0">Disciplina</option> @foreach($materias as $materia )<option value="{{$materia->id }}">{{$materia->nm_materia}}</option>@endforeach</select></td>'+
    '<td><a href="#" class="btn btn-danger remove" id="remover"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
    ' <input type="hidden" name="diasemana_id[]" id="diasemana_id[]" value="'+diaSemana+'">'+
    '  <input type="hidden" name="horario_id[]" id="horario_id[]" value="'+(i)+'">'+
@@ -450,7 +475,7 @@ function addRow()
       else{ 
        $(this).parent().parent().remove(); 
       if(i<1){
-      i+1;
+      i++;
       }else{
      i=i-1;
                                                       }
@@ -501,7 +526,7 @@ function addRow()
         else{ 
              $(this).parent().parent().remove(); 
              if(i<1){
-               i+1;
+               i++;
              }else{
               i=i-1;
              }
@@ -542,7 +567,7 @@ function addRow()
         else{ 
              $(this).parent().parent().remove(); 
              if(i<1){
-               i+1;
+               i++;
              }else{
               i=i-1;
              }
@@ -584,7 +609,7 @@ function addRow()
         else{ 
              $(this).parent().parent().remove(); 
              if(i<1){
-               i+1;
+               i++;
              }else{
               i=i-1;
              }
@@ -638,7 +663,7 @@ function addRow()
             
              $(this).parent().parent().remove(); 
              if(i<1){
-               i+1;
+               i++;
              }else{
                i=i-1;
              }

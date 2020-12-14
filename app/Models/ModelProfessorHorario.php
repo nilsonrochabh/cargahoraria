@@ -23,7 +23,7 @@ class ModelProfessorHorario extends Model
     }
     public function relDiaSemana()
     {
-         return $this->belongsTo( 'App\Models\ModelDiaSemana','diasemana_id');
+         return $this->belongsTo( 'App\Models\ModelDiaSemana','diasemana_id')->orderBy('id','ASC');
     }  
     public function relProfessor()
     {

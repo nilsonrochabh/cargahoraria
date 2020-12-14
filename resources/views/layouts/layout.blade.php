@@ -100,6 +100,10 @@
 
     <script src="{{url('assets/js/script.js')}}"></script>
 
+
+
+
+
     @yield('post-script')
     
 </body>

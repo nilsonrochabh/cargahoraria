@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ViewErrorBag;
 use App\Models\ModelUnidade;
 use App\Models\ModelUser;
+use Illuminate\Support\Facades\DB;
+
 
 class AuthController extends Controller
 {

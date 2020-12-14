@@ -4,110 +4,129 @@
 <main role="main" class="container">
 
   <div class="container">
-    <div class="row">
-      <h2>Editar de Horarios Turma</h2>     
-         
-      <hr />
-    </div>
-    <div class="col-12  m-auto" >
-      @if (isset($errors) && count($errors)>0)
-      <div class="alert-danger text-center mt-4 mb-4 p-2" >
-        @foreach ($errors->all() as $erro)
-        {{$erro}}<br />
-            
-        @endforeach
-      </div>
-
-          
-           
-      @endif	
-
-      @foreach ($horarioTurmas as $horarioTurma)
-          
-      @endforeach
-      @php
-      $horarioprofessor=$horarioTurma->find($horarioTurma->id)->relProfessorHorario;
-
-      $professorNome = $horarioprofessor->relProfessor;
-      $materiaNome = $horarioprofessor->relMateria;
-      $dia=$horarioprofessor->relDiaSemana;
-     
-      
-      $seguimento=$horarioTurma->find($horarioTurma->id)->relSeguimento;
-      $serie=$horarioTurma->find($horarioTurma->id)->relSerie;       
-      $turma=$horarioTurma->find($horarioTurma->id)->relTurma;       
-      $turno=$horarioTurma->find($horarioTurma->id)->relTurno;       
-     
-  @endphp   
-
-
-@foreach($horarioProfessores as $key=>$horarioProf)
-@if($horarioTurma->id===$horarioProf->horarioturma_id)
-     @php 
-      
-        $horario_id = $horarioProf->horarioturma_id;
-        $professor=$horarioProf->find($horarioProf->id)->relProfessor;
-        $materia=$horarioProf->find($horarioProf->id)->relMateria;
-        $diasemana=$horarioProf->find($horarioProf->id)->relDiaSemana;
-        $horario=$horarioProf->find($horarioProf->id)->relHorario;
-        //dd($professor->nm_professor)
-        //dd($materia->nm_materia)
- 
-        @endphp
-    @endif
-    @endforeach
- <ul class="list-group mt-4">
-    <h1>{{($dia->nm_diasemana)}}</h1>
-  </ul>
-    <div id="">
-    <table class="table table-bordered" >  
-    <tr>
-    <th>Horário</th>
-    <th>Professor</th>
-    <th>Disciplina</th>
-    <th>Ação</th>
-    </tr>
-    <tbody id="tab5">
-    <tr> 
-      <td>{{$horario->nm_horario}}</td>
+    <div class="text-center">
+      <h2>Editar Turma</h2>     
         
-    <td>
-      <input type="hidden" name="horario_id" value="{{$horario_id}}">
-   
-    <select class="custom-select" id="professor_id[]" name="professor_id[]" >
-                        <option value="0" selected>Professor</option>
-                              @foreach($professores as $professor )
-                                  @if($professor->unidade_id === $usuario->unidade_id)   
-                              <option value="{{$professor->id ?? ''}}">{{$professor->nm_professor ?? ''}}</option>
-                               @endif 
-                              @endforeach
-                      </select>
-      </td>  
-    <td>
-      <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" > 
-        <option value="0"></option> 
-      </select>              
+          <a href="/turma/">
+            <button class="btn btn-success">Voltar</button>
+            </a>    
+          <hr />   
+        </div>
+        <div class="row">
+            @foreach ($horarioTurmas as $hturma)
+           
+            @php
+                    
+                $seguimento=$hturma->find($hturma->id)->relSeguimento;
+                $serie=$hturma->find($hturma->id)->relSerie;
+                $turno=$hturma->find($hturma->id)->relTurno;
+                $turma=$hturma->find($hturma->id)->relTurma;
       
-    <td><button type="button" class="addRow6" name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td>  
-    </tr>  
-    </tbody>
-    </table>
+            @endphp
+     
+     @endforeach
+                <div class="form-group col-md-3">
+                  <label for="seguimento ">Seguimento</label>
+                        <select id="segui" name="segui" class="form-control" >  
+                            
+                        <option value="{{$seguimento->id}}">{{$seguimento->nm_seguimento}}</option>            
+                        </select>
+                        </div>
+                            <div class="form-group col-md-3">
+                              <label for="serie ">Serie</label>
+                        <select id="serie1" name="serie1" class="form-control" > 
+                            <option selected>{{$serie->nm_serie}}</option>
+                        </select>
+                        </div>
+                        <div class="form-group col-md-1">
+                          <label for="Turma ">Turma</label>
+                          <select id="turma_id" name="turma_id" class="form-control" >
+                            <option value="{{$turma->id}}">{{$turma->nm_turma}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                          <label for="Turno ">Turno</label>
+                
+                          <select id="turno_id" name="turno_id" class="form-control" >
+                            <option selected>{{$turno->nm_turno}}</option>                 
+                          </select>
+                        </div>
+                
+        </div>
+        <br />      
+        <div class="col-12  m-auto" >   
+    <table class="table table-bordered" id="prof">
+        <thead>
+            <tr>
+                <th>Dia da semana</th>
+                <th>Horário </th>
+                <th>Matéria</th>    
+                <th>Professor</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody >
+       
+             <tr> 
+                <td>  
+                  <select id="diasemana_id" name="diasenama_id" class="form-control"   required="true" >
+                 
+                </select>
+                </td> 
+                <td>   
+                   <select id="horario_id" name="horario_id" class="form-control"   required="true" >
+                     
+                   </select>
+                </td>       
+                 <td>
+                  <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" >
+                   
+                  </select>
+                   
+                   </td> 
+                 <td>
+                  <select id="professor_id[]" name="professor_id[]" class="form-control"   required="true" >
+                    
+                  </select> 
+                  
+                 </td>
+                 <td> 
+                  
+                  
+                  <button type="button" class="addRow6"  name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td> 
+                  </a>
+                 
+                
+               
+                 
+             </tr > 
+         
+        </tbody>
+       
+    </table >
+    
+    </div>
+    </div>  
+        
 
-    </div>          
-   
-</div>
+
+
 @section('post-script')
 <script>
     $(document).ready(function(){
-        var horarioturma_id = {{$horario_id}};
-        console.log(horarioturma_id);
+        var url_atual = ""; 
+        console.log(url_atual);
                   jQuery.ajax({
                      url : '/turma/retorna_horarios/' +horarioturma_id ,
                      type : "GET",
                      dataType : "json",
                      success:function(data)
                      {    
-                      console.log(data);  
+                        var professor_id = function(object) {
+                             return object.id
+                                    };
+
+                        console.log(data.map(professor_id));
 
                       }
                   });

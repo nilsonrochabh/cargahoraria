@@ -53,7 +53,7 @@
                                     <optgroup label="RJ">
                                     <option value="4">Colégio Salesiano de Rocha Miranda</option>
                                     <option value="8">Colegio Salesiano Região Oceânica</option>
-                                    <option value="9">Colégio Salesiano Santa Rosa</option>
+                                    <option value="20">Colégio Salesiano Santa Rosa</option>
                                     <option value="10">Colégio Salesiano Jacarezinho</option>
                                     <option value="12">Instituto Dom Bosco</option>
                                     <option value="13">Instituto São José</option>

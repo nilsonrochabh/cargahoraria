@@ -156,5 +156,11 @@ class ProfessorController extends Controller
         //
     }
 
+    public function adddisciplina(Request $request,$id){
+        $professor_id = $id;
+        return $request;
+
+    }
+
 
 }

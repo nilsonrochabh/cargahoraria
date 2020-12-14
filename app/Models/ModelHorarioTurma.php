@@ -14,15 +14,15 @@ class ModelHorarioTurma extends Model
 
     public function relProfessor()
     {
-        return $this->belongsTo('App\Models\ModelProfessor', 'id','professor_id');
+        return $this->belongsTo('App\Models\ModelProfessor', 'id',);
     }
     public function relDiaSemana()
     {
-        return $this->HasMany('App\Models\ModelDiaSemana', 'id','diasemana_id');
+        return $this->belongsTo('App\Models\ModelDiaSemana', 'id',)->orderBy('id','ASC');
     }
     public function relHorario()
     {
-        return $this->HasMany('App\Models\ModelHorario', 'horario_id');
+        return $this->belongsTo('App\Models\ModelHorario', 'id');
     }
     public function relSerie()
     {

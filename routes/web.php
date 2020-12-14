@@ -37,18 +37,19 @@ Route::get('professor','ProfessorController@index')->middleware('auth');;
 Route::post('professor','ProfessorController@store')->middleware('auth');;
 Route::get('professor/cad','ProfessorController@create')->middleware('auth');;
 Route::post('professor/{professor}/enturmar','ProfessorController@enturmar')->middleware('auth');;
-Route::put('professor/{professor}','ProfessorController@update')->middleware('auth');;
-Route::get('professor/{professor}','ProfessorController@show')->middleware('auth');;
-Route::get('professor/{professor}/edit','ProfessorController@edit')->middleware('auth');;
-Route::get('professor/professorturma','ProfessorController@professorturma')->middleware('auth');;
+Route::put('professor/{professor}','ProfessorController@update')->middleware('auth');
+Route::get('professor/{professor}','ProfessorController@show')->middleware('auth');
+Route::get('professor/{professor}/edit','ProfessorController@edit')->middleware('auth');
+Route::get('professor/professorturma','ProfessorController@professorturma')->middleware('auth');
+Route::post('/professor/adddisciplina/','ProfessorController@adddisciplina')->middleware('auth');
 
 
 
-
+Route::post('turma/addhorario','HorarioTurmaController@updatehorario')->name('turma/horario_prof/{{turma}}');;
 
 Route::get('/turma/{id}/cadedit','HorarioTurmaController@cadedit')->middleware('auth');
 Route::get('/turma/{turma}/edit','HorarioTurmaController@edit')->middleware('auth');
-Route::get('/turma/retorna_horarios/{horarioturma_id}/','HorarioTurmaController@retorna_horarios')->middleware('auth');
+Route::get('/turma/retorna_horarios/{id}/','HorarioTurmaController@retorna_horarios')->middleware('auth');
 
 Route::post('/turma/pegaDados','HorarioTurmaController@pegaDados')->middleware('auth');; 
 Route::get('/turma/getSeries/{segui_id}','HorarioTurmaController@getSeries')->middleware('auth');

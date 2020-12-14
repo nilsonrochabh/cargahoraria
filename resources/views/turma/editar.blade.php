@@ -5,56 +5,50 @@
 <div class="container">
     <div class="text-center">
       <h2>Horarios Turma</h2>   
-      <a href="/turma/">
+      <a href="/turma">
         <button class="btn btn-success">Voltar</button>
         </a>    
       <hr />   
     </div>
-       @php
+
+  
+    <form action="{{url("turma/horario_prof/$horarioTurma->id")}}"  name="fEdit" id="fEdit" method="post" >@method('PUT')
+    <input type="hidden" name="id" id="id" value="{{$horarioTurma->id}}">
+    @csrf
+    @php
                     
-            $seguimento=$horarioTurma->find($horarioTurma->id)->relSeguimento;
+            //$seguimento=$horarioTurma->find($horarioTurma->id)->relSeguimento;
             $serie=$horarioTurma->find($horarioTurma->id)->relSerie;
             $turno=$horarioTurma->find($horarioTurma->id)->relTurno;
             $turma=$horarioTurma->find($horarioTurma->id)->relTurma;
-      
+           //dd($horarioTurma->relSeguimento->nm_seguimento);
       @endphp
-
-
     <div class="row">
             <div class="form-group col-md-3">
+                          
               <label for="seguimento ">Seguimento</label>
-                    <select id="segui" name="segui" class="form-control" >
-                      
-                        <option >{{$seguimento->nm_seguimento}}</option>  
-                        @foreach($seguimentos as $seguimento)
-                        
-                        <option value="{{$seguimento->id}}">{{$seguimento->nm_seguimento}}</option>
-                        @endforeach                   
+                    <select id="seguimento_id" name="seguimento_id" class="form-control" disabled >
+                        <option value="{{$horarioTurma->relSeguimento->id}}"> {{$horarioTurma->relSeguimento->nm_seguimento}}</option>                      
                     </select>
                     </div>
                         <div class="form-group col-md-3">
-                          <label for="serie ">Serie</label>
-                    <select id="serie1" name="serie1" class="form-control" > 
-                    <option selected>{{$serie->nm_serie}}</option>
+                          <label for="serie">Serie</label>
+                    <select id="serie_id" name="serie_id" class="form-control"  disabled> 
+                    <option value="{{$horarioTurma->relSerie->id}}">{{$horarioTurma->relSerie->nm_serie}}}</option>
                     </select>
                     </div>
                     <div class="form-group col-md-1">
                       <label for="Turma ">Turma</label>
-                      <select id="turma_id" name="turma_id" class="form-control" >
-                       <option selected>{{$turma->nm_turma}}</option>                          
-                       @foreach($turmas as $turma)
-                          
-                         <option value="{{$turma->id}}">{{$turma->nm_turma}}</option>
-                      @endforeach
+                      <select id="turma_id" name="turma_id" class="form-control" disabled>
+                       <option value="{{$horarioTurma->relTurma->id}}"  >{{$horarioTurma->relTurma->nm_turma}}</option>                          
+  
                       </select>
                     </div>
                     <div class="form-group col-md-2">
                       <label for="Turno ">Turno</label>
-                      <select id="turno_id" name="turno_id" class="form-control" >
-                          <option selected>{{$turno->nm_turno}}</option>  
-                          @foreach($turnos as $turno )
-                          <option value="{{$turno->id}}">{{$turno->nm_turno}}</option>
-                          @endforeach                        
+                      <select id="turno_id" name="turno_id" class="form-control"  disabled>
+                          <option value="{{$horarioTurma->relTurno->id}}}">{{$horarioTurma->relTurno->nm_turno}}</option>  
+                          
                       </select>
                     </div>
             
@@ -62,13 +56,16 @@
     <br />      
     <div class="col-12  m-auto" >   
 <table class="table table-bordered" id="prof">
+
     <thead>
-        <tr>
+        <tr> <th></th>
             <th>Dia da semana</th>
             <th>Horário </th>
             <th>Matéria</th>    
             <th>Professor</th>
-            <th>Ação</th>
+            
+           
+          
         </tr>
     </thead>
     <tbody >
@@ -76,7 +73,7 @@
     @if($horarioTurma->id===$horarioProf->horarioturma_id)
          @php 
         //  dd($horarioProf);
-         
+            
             $professor=$horarioProf->find($horarioProf->id)->relProfessor;
             $materia=$horarioProf->find($horarioProf->id)->relMateria;
             $diasemana=$horarioProf->find($horarioProf->id)->relDiaSemana;
@@ -85,8 +82,11 @@
             //dd($materia->nm_materia)
             @endphp
          <tr> 
-            <td  >  
-              <select id="diasemana_id" name="diasenama_id" class="form-control"   required="true" >
+         
+      
+            <td >  
+      
+              <select id="diasemana_id[]" name="diasemana_id" class="form-control"   required="true" >
               <option value="{{$diasemana->id}}"> {{$diasemana->nm_diasemana}}</option>
                 @foreach($diasemanas as $dia )
                 <option value="{{$dia->id}}">{{$dia->nm_diasemana}}</option>
@@ -94,77 +94,114 @@
             </select>
             </td> 
             <td>   
-               <select id="horario_id" name="horario_id" class="form-control"   required="true" >
+               <select id="horario_id[]" name="horario_id" class="form-control"   required="true" >
                  <option value="{{$horario->id}}"> {{$horario->nm_horario }} </option>
                   @foreach($horarios as $horario )
                  <option value="{{$horario->id}}">{{$horario->nm_horario}}</option>
                  @endforeach
                </select>
-            </td>       
+            </td>    
+            
              <td>
-              <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" >
+              <select id="materia_id[]" name="materia_id" class="form-control"   required="true" >
                 <option value="{{$materia->id}}"> {{$materia->nm_materia}} </option>
                  @foreach($materias as $mat )
                 <option value="{{$mat->id}}">{{$mat->nm_materia}}</option>
                 @endforeach
               </select>
-               
                </td> 
-             <td>
-              <select id="professor_id[]" name="professor_id[]" class="form-control"   required="true" >
-                <option value="{{$professor->id}}"> {{$professor->nm_professor}} </option>
-                 @foreach($professores as $prof )
-                   <option value="{{$prof->id}}">{{$prof->nm_professor}}</option>
-                @endforeach
-              </select> 
+
+               <td>
+                <select id="professor_id[]" name="professor_id" class="form-control"   required="true" >
+                  
+                  <option value="{{$professor->id}}"> {{$professor->nm_professor}} </option>
+                  @foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)
+                      <option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif 
+                  @endforeach
+                </select> 
+                
+               </td>
               
-             </td>
-             <td> 
-              <a href="/turma/{{$horarioProf->id}}/cadedit">
-              
-              <button type="button" class="addRow6"  name="add" id="add-btn" class="btn btn-success">Adicionar Horário</button></td> 
-              </a>
-             @endif
             
-             @endforeach
-             
-         </tr > 
+              </tr>  
+        
+            
+                 
+           
+          </form>
+         
+   
+   
      
     </tbody>
-   
+
+    @endif
+    @endforeach   
+  
+
 </table >
+<a href="" >
+  <input class="btn btn-info editar mb-4" style="width: 100%;" value= "Editar" type="button">
+</a>
+
 
 </div>
 </div>  
-    
+
 
 @section('post-script')
 <script>
-var i=0;  
-	//add more categories drop down js
-  i=i+1;
-  console.log(i);
-  $('#add-btn').on('click',function(e){
-			e.preventDefault();
-      var template = '<tr>'+
-                          '<td>'+i+'º Horário</td>'+
-                          '<td><select class="custom-select" id="professor_id[]" name="professor_id[]" ><option value="0">Professor</option>@foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)<option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif @endforeach</select></td>'+
-                          '<td><select id="materia_id[]" name="materia_id[]" class="custom-select" ><option value="0"></option> </select> </td>'+
-                          '<td><a href="#" class="btn btn-danger remove" id="remover"><i class="glyphicon glyphicon-remove"></i>Remover</a></td>'+
-                          
-                  '</tr>';
-             //append before
-			$('.tr').after(template);
-		});
-		//remove categories js
-		$(document).on('click', '.btn-remove-cat', function(e){
-			e.preventDefault();
-			$(this).parent('.form-group').remove();
-		});
 
 
+$(document).ready(function(){
+  $('.editar').on('click',function(e){
+    e.preventDefault();
+    var id = $("#id").val();
+    console.log(id)
+    $.ajax({
+      
+    })
+  
+  });
+});
+
+
+
+    $(document).ready(function(){
+      jQuery('select[name="seguimento_id"]').on('change',function(){
+               segui_id = jQuery(this).val();
+               if(segui_id)
+               {
+                  jQuery.ajax({
+                     url : '/turma/getMaterias/' +segui_id,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {    
+                      
+                        jQuery.each(data, function(key,value){
+                         
+                        $('select[id="materia_id[]"]').append('<option value="'+ key +'">'+ value +'</option>');
+                      
+                        });
+                        mat.push(data);  
+
+                      }
+                  });
+               }
+               else
+               {
+                  $('select[id="materia_id[]"]').empty();
+               }
+            
+            });
+            
+            
+    });
 
     </script> 
+   
+
 @endsection
 
 @endsection

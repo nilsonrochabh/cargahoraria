@@ -1,17 +1,20 @@
-@extends('layouts.professor')
+@extends('layouts.layout')
 @section('content')
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <br>
 
 <div class="container">
 <div class="text-center">
+
+
+      
+  
 <h1 class="mb-8">@if(isset($professor))Editar Professor(a) @else Cadastrar Professor(a) @endif </h1>
 
    <a href="/professor">
 <button class="btn btn-success">Voltar</button>
 </a> 
 </div>
-
 
 @if(isset($professor))
     <form action="{{url("professor/$professor->id")}}" name="fEdit" id="fEdit" method="post"  >@method('PUT')
@@ -41,11 +44,10 @@
             <label for="">Carga Horária Vigente</label>
             <input type="text" step="1" min=1 max=60 id="carga_horaria" name="carga_horaria"  class="form-control" value="{{$professor->carga_horaria ??''}}"  required>
         </div>
-
-           
+      
       
     </div>
-    
+  
     
         <div class="form-row mb-12">
 
@@ -54,10 +56,9 @@
      <div class="col">
 
       
-            
+
         
-        @php 
-     
+      @php 
       $num1=$professor->materia1_id;
       $num2=$professor->materia2_id;
       $num3=$professor->materia3_id;
@@ -122,10 +123,11 @@
                       </select> 
                   </div>
 
-
+<br>
     </div>
-    </div>
 
+    
+    
     <!-- Sign up button -->
     <input class="btn btn-info my-4 btn-block"  value="@if(isset($professor))Editar @else Cadastrar @endif"  type="submit">
    
@@ -137,22 +139,58 @@
 <!-- Default form register -->
 </div>
 
-<script>
+
+
+  </form>
+    </div>
+  </div>
+</div>
+
+@section('post-script')
+
+
+<script >
+  $(document).ready(function(){
+      $('.add').on('click',function(e){
+          e.preventDefault();
+          var id = $('#matricula').val();
+         
+          $.ajax({
+                type:"PUT",
+                url:"/professor/adddisciplina" +id,
+                data:$('#addform').serialize(),
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(response){
+                    console.log(response);
+                    
+                },
+                erro: function(erro){
+                    console.log(error)
+                    alert("Error");
+                }
+            });
+
+         
+      });
+  });
+
+
+
+
+
+
+
 funcaoMatricula = function(){
     var mat =$('#matricula').val();
     $('#id').val(mat);
     
 
 }
-$('.custom-select').select2({
-    
-           placeholder: "Disciplina",
-           allowClear: true
-          });
+
 
 
 
 
 </script>
-
+@endsection
 @endsection

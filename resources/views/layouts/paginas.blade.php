@@ -28,10 +28,6 @@
       width: 100%;
     }
 
-    .dataTables_filter {
-      display: none;
-    }
-
   </style>
  
 
@@ -104,7 +100,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 
 
-    {<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script> 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese.json"></script>
 

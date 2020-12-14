@@ -1,6 +1,6 @@
-@extends('layouts.professor')
+@extends('layouts.layout')
 @section('content')
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <br>
 
 <div class="container">
@@ -38,73 +38,122 @@
         </div>
 
            
+
       
     </div>
-    
-    
-        <div class="form-row mb-12">
-
-        
-     <div class="col-4">
-     <div class="col">
-
        
-
-
-   
-     <label for="">Disciplina 1</label>
-                      <select class="custom-select" id="materia1_id" name="materia1_id">
-                      <option value="0">Disciplina </option>
+        <div class="form-row mb-12">             
+        
+            <div class="col-3">
+                <table class="table table-bordered" >
+                
+                     <thead>
+                         <tr>
+                             <th>Disciplina 1</th>    
+                         </tr>
+                     </thead>
+                     <tbody >       
+                             <td >  
+                               <select id="materia_id" name="materia_id" class="form-control"   required="true" >
+                               <option value="0"> </option>
+                                 @foreach($materias as $materia )
+                                 <option value="{{$materia->id}}">{{$materia->nm_materia}}</option>
+                                 @endforeach
+                             </select>
+                             </td> 
+                            <tr id="tr">
+                       </tr>
                       
-                            @foreach($materias as $materia1_id )
-                              <option value="{{$materia1_id->id}}">{{$materia1_id->nm_materia}}</option>
-                              @endforeach
-                            
-                      </select> 
-                  </div>
-
-    </div>
-    <div class="col-4">
-     <div class="col">
-     <label for="">Disciplina 2</label>
-                      <select class="custom-select" id="materia2_id" name="materia2_id">
-                  
-                      <option value="0">Disciplina </option>
-                  
-                            @foreach($materias as $materia2_id )
-                              <option value="{{$materia2_id->id}}">{{$materia2_id->nm_materia}}</option>
-                              @endforeach
-                            
-                      </select> 
-                  </div>
-
-    </div>
-    <div class="col-4">
-     <div class="col">
-     <label for="">Disciplina 3</label>
-                      <select class="custom-select disciplina" id="materia3_id" name="materia3_id">
-                      <option value="0">Disciplina </option>
-                            @foreach($materias as $materia3_id )
-                              <option value="{{$materia3_id->id}}">{{$materia3_id->nm_materia}}</option>
-                              @endforeach
-                            
-                      </select> 
-                  </div>
-
-
-    </div>
-    </div>
-
-    <!-- Sign up button -->
-    <input class="btn btn-info my-4 btn-block"  value=" Cadastrar"  type="submit">
+                     </tbody>
+                 </table >
+                </div>
+                <div class="col-3">
+                    <table class="table table-bordered" >
+                
+                        <thead>
+                            <tr>
+                                <th>Disciplina 2</th>    
+                            </tr>
+                        </thead>
+                        <tbody >       
+                                <td >  
+                                  <select id="materia_id" name="materia_id" class="form-control"   required="true" >
+                                  <option value="0"> </option>
+                                    @foreach($materias as $materia )
+                                    <option value="{{$materia->id}}">{{$materia->nm_materia}}</option>
+                                    @endforeach
+                                </select>
+                                </td> 
+                               <tr id="tr">
+                          </tr>
+                         
+                        </tbody>
+                    </table >
+                    </div>
+                    <div class="col-3">
+                        <table class="table table-bordered" >
+                
+                            <thead>
+                                <tr>
+                                    <th>Disciplina 3</th>    
+                                </tr>
+                            </thead>
+                            <tbody >       
+                                    <td >  
+                                      <select id="materia_id" name="materia_id" class="form-control"   required="true" >
+                                      <option value="0"> </option>
+                                        @foreach($materias as $materia )
+                                        <option value="{{$materia->id}}">{{$materia->nm_materia}}</option>
+                                        @endforeach
+                                    </select>
+                                    </td> 
+                                   <tr id="tr">
+                              </tr>
+                             
+                            </tbody>
+                        </table >
+                        </div>                         
+          </div>
    
+        </div>
+
+    </div>
+
+
+  
     <hr>
 
-   
-
+    <input class="btn btn-info my-4 btn-block"  value=" Cadastrar"  type="submit">
 </form>
-<!-- Default form register -->
+  <!-- Sign up button -->
 </div>
+
+
+<script >
+    $(document).ready(function(){
+        $('#addDisciplina').on('click',function(e){
+            e.preventDefault();
+            var id = $("#id").val();
+            console.log(id)
+            $.ajax({
+                type:"POST",
+                url:"/professor/adddisciplina",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data:$('#addform').serialize(),
+                success:function(response){
+                    console.log(response);
+                
+                },
+                erro: function(erro){
+                    console.log(error)
+                    alert("Error");
+                }
+            });
+        });
+    });
+
+</script>
+
 
 <script>
 funcaoMatricula = function(){
@@ -113,12 +162,6 @@ funcaoMatricula = function(){
     
 
 }
-$('.disciplina').select2({
-    
-           placeholder: "Disciplina",
-           allowClear: true
-          });
-
 
 
 
