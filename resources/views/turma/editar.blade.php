@@ -10,10 +10,15 @@
         </a>    
       <hr />   
     </div>
-
+    @foreach($horarioProfessores as $key=>$horarioProf)
+        
+ 
   
-    <form action="{{url("turma/horario_prof/$horarioTurma->id")}}"  name="fEdit" id="fEdit" method="post" >@method('PUT')
-    <input type="hidden" name="id" id="id" value="{{$horarioTurma->id}}">
+    <form  id="fEdit" action="{{url("turma/$horarioProf->id")}}">
+      @endforeach
+      {{csrf_field()}}
+      @method('PUT')
+   
     @csrf
     @php
                     
@@ -58,11 +63,12 @@
 <table class="table table-bordered" id="prof">
 
     <thead>
-        <tr> <th></th>
+        <tr> 
             <th>Dia da semana</th>
             <th>Horário </th>
             <th>Matéria</th>    
             <th>Professor</th>
+            <th>Ação</th>
             
            
           
@@ -70,6 +76,7 @@
     </thead>
     <tbody >
     @foreach($horarioProfessores as $key=>$horarioProf)
+   
     @if($horarioTurma->id===$horarioProf->horarioturma_id)
          @php 
         //  dd($horarioProf);
@@ -82,7 +89,7 @@
             //dd($materia->nm_materia)
             @endphp
          <tr> 
-         
+  
       
             <td >  
       
@@ -121,49 +128,53 @@
                 </select> 
                 
                </td>
-              
-            
-              </tr>  
-        
-            
-                 
-           
-          </form>
-         
-   
-   
-     
+               
+               <td > <a href="{{$horarioProf->id}}"> <input class="btn btn-info mb-4" style="width: 100%;" id="{{$horarioProf->id}} " value= "Editar" type="submit" ></a></td>
+              </tr> 
+             
     </tbody>
 
     @endif
+    
     @endforeach   
   
 
 </table >
-<a href="" >
-  <input class="btn btn-info editar mb-4" style="width: 100%;" value= "Editar" type="button">
+<a >
+ 
 </a>
 
-
+</form>  
 </div>
 </div>  
 
 
 @section('post-script')
+
+<script>
+  $("#fEdit").on('submit',function(e){
+    e.preventDefault();
+     
+    $.ajax({
+       type:'PUT',
+       url:'/turma/atualizahorario/',
+       data:$('#fEdit').serialize(),
+       success:function(response){
+         console.log(response);
+         //window.location.href = 'turma/';
+       },
+       error:function(error){
+         console.log(error);
+       }
+    });
+
+
+  })
+</script>
 <script>
 
 
-$(document).ready(function(){
-  $('.editar').on('click',function(e){
-    e.preventDefault();
-    var id = $("#id").val();
-    console.log(id)
-    $.ajax({
-      
-    })
-  
-  });
-});
+
 
 
 

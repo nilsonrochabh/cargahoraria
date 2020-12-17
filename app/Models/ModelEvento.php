@@ -13,6 +13,11 @@ class ModelEvento extends Model
     public function relAtividade()
     {
         return $this->belongsTo('App\Models\ModelAtividade','id');
+
+    }
+    public function relUsuer()
+    {
+        return $this->belongsTo('App\Models\User','unidade_id');
     }
   
 }

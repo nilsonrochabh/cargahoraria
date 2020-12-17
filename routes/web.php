@@ -43,9 +43,12 @@ Route::get('professor/{professor}/edit','ProfessorController@edit')->middleware(
 Route::get('professor/professorturma','ProfessorController@professorturma')->middleware('auth');
 Route::post('/professor/adddisciplina/','ProfessorController@adddisciplina')->middleware('auth');
 
+Route::delete('/professor/{professor}' ,'ProfessorController@destroy')->middleware('auth');   
+
 
 
 Route::post('turma/addhorario','HorarioTurmaController@updatehorario')->name('turma/horario_prof/{{turma}}');;
+Route::put('/turma/atualizahorario/{id}','HorarioTurmaController@update')->middleware('auth');
 
 Route::get('/turma/{id}/cadedit','HorarioTurmaController@cadedit')->middleware('auth');
 Route::get('/turma/{turma}/edit','HorarioTurmaController@edit')->middleware('auth');

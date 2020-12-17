@@ -36,27 +36,27 @@
             <label for="exampleInputEmail1">Escolha sua unidade</label>
             <select class="form-control" id="unidade" name="unidade" required="">
                 <option value=""></option>
-                                      <optgroup label="DF">                                                                                                                          <option value="2">Escola Salesiana Brasília</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <option value="11">Escola Salesiana São Domingos Sávio</option>
-                                                                                                                                                                      </optgroup> 
+                                      <optgroup label="DF">  
+                                    <option value="59">Escola Salesiana São Domingos Sávio</option>
+                                     </optgroup> 
                                       <optgroup label="ES">
-                                     <option value="6">Colégio Salesiano Jardim Camburi</option>
-                                     <option value="7">Colégio Salesiano Nossa Senhora da Vitória</option>
+                                     <option value="5">Colégio Salesiano Jardim Camburi</option>
+                                     <option value="22">Colégio Salesiano Nossa Senhora da Vitória</option>
                                      </optgroup> 
                                       <optgroup label="GO">
-                                     <option value="1">Ateneu Salesiano Dom Bosco</option>
+                                     <option value="15">Ateneu Salesiano Dom Bosco</option>
                                      </optgroup> 
                                     <optgroup label="MG">
-                                     <option value="3">Colégio Salesiano de Belo Horizonte</option>
-                                    <option value="5">Colégio Salesiano Dom Bosco</option>
+                                     <option value="24">Colégio Salesiano de Belo Horizonte</option>
+                                    <option value="44">Colégio Salesiano Dom Bosco</option>
                                     </optgroup> 
                                     <optgroup label="RJ">
-                                    <option value="4">Colégio Salesiano de Rocha Miranda</option>
-                                    <option value="8">Colegio Salesiano Região Oceânica</option>
+                                    <option value="38">Colégio Salesiano de Rocha Miranda</option>
+                                    <option value="11">Colegio Salesiano Região Oceânica</option>
                                     <option value="20">Colégio Salesiano Santa Rosa</option>
                                     <option value="10">Colégio Salesiano Jacarezinho</option>
                                     <option value="12">Instituto Dom Bosco</option>
-                                    <option value="13">Instituto São José</option>
+                                    <option value="44">Instituto São José</option>
                                     </optgroup> 
                                   </select>
         </div>
@@ -70,7 +70,7 @@
 
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-        <p class="mt-5 mb-3 text-muted">Copyright © 2019 - Todos os direitos reservados.</p>
+        <p class="mt-5 mb-3 text-muted">Copyright © 2021 - Todos os direitos reservados.</p>
     </form>
 </body>
 

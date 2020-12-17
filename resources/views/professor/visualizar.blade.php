@@ -10,9 +10,10 @@
 </a> 
 </div>
 <div>
-        <!-- <p>Professor : <span class="font-weight-bold">{{$professor->nm_professor}}</span> </p> -->
+
     <table class="table">
   <thead>
+
     <tr>
       <th scope="col">Matricula</th>
       <th scope="col">Carga Horária Vigente</th>
@@ -60,8 +61,7 @@
         
       <a href="{{url("professor/$professor->id/edit")}}"">
                     <button class="btn btn-primary">Editar</button>
-                        
-                    </a>
+                 
 
                    
       </td>

@@ -226,8 +226,19 @@ class HorarioTurmaController extends Controller
 
   
     public function update(Request $request, $id){    
-      
-        
+
+        // $atualiza = ModelProfessorHorario::with('id','=',$id)->updade([
+        //     'diasemana_id'=>$request->diasemana_id,
+        //     'horario_id'=>$request->horario_id,
+        //     'materia_id'=>$request->materia_id,
+        //     'professor_id'=>$request->professor_id,
+        // ]);
+        // if($atualiza){
+        //     return redirect('turma/horario_prof/'+$id);
+        // }
+ 
+   
+    
     }
   
 

@@ -55,4 +55,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App/Models/ModelUnidade.php','unidade_id');
     }
+    public function relEvento()
+    {
+        return $this->belongsTo('App\Models\Evento','unidade_id');
+    }
 }

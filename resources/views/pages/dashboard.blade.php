@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.paginas')
 @section('content')
 
 
@@ -28,6 +28,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
                         <div class="text-center">
@@ -52,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-              
+                
             </div>
 
             <hr>

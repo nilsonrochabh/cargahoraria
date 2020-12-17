@@ -153,11 +153,11 @@ class ProfessorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 
-    public function adddisciplina(Request $request,$id){
-        $professor_id = $id;
+    public function adddisciplina(Request $request){
+        
         return $request;
 
     }

@@ -65,7 +65,7 @@ class AtividadeController extends Controller
         $diasemana =$this->objDiaSemana->all();
         $turmas=$this->objTurma->all();
         $turnos=$this->objTurno->all();
-        $eventos=$this->objEvento->all();
+        $eventos=$this->objEvento->get();
         $unidades=$this->objUnidade->all();
         $usuario = Auth::user();
         

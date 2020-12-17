@@ -23,15 +23,15 @@
     @endif
 
   @csrf 
-
+  <div class="col-2">
+    <label for="matricula" hidden>Matricula</label>
+     <input type="number"  min=1 id="matricula" name="matricula"  class="form-control" hidden onchange="funcaoMatricula()"   value="{{$professor->matricula ??''}}">
+     <input type="text" id="id" name="id" class="form-control" value=""   hidden>
+ </div>
     <div class="form-row mb-2">
 
 
-    <div class="col-2">
-           <label for="Matricula">Matricula</label>
-            <input type="number"  min=1 id="matricula" name="matricula"  class="form-control" onchange="funcaoMatricula()"   value="{{$professor->matricula ??''}}" required>
-            <input type="text" id="id" name="id" class="form-control" value=""   hidden>
-        </div>
+    
         <div class="col-7">
         <label for="nome">Nome</label>
             <input type="text" id="nm_professor" name="nm_professor" class="form-control"   value="{{$professor->nm_professor ??''}}" required>

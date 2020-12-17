@@ -64,8 +64,9 @@
                       <option value="{{$atividade->relEvento->id ?? ''}}">{{$atividade->relEvento->nm_evento ?? 'Evento'}}</option>
 
                             @foreach($eventos as $evento)
-                              
+                              @if($evento->unidade_id === $usuario->unidade_id)
                                 <option value="{{$evento->id}}">{{$evento->nm_evento}}</option>
+                                @endif
                             @endforeach 
                             </select>
                     </div>

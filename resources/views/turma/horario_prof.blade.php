@@ -50,8 +50,8 @@
                       </select>
                     </div>
                     <div class="form-group col-md-1">
-                        <a >
-                            <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#editar"> Editar</button></a>
+                        {{-- <a href="{{url("turma/$horarioturma->id/edit")}}">
+                            <button type="button"  class="btn btn-primary" > Editar</button></a> --}}
                      </div>
                      <div class="form-group col-md-1">
                         <a href=  "{{url("/turma/$horarioturma->id")}}" class="j-del">
@@ -75,11 +75,11 @@
 <table class="table table-bordered" id="prof">
     <thead>
         <tr>
-           
             <th>Dia da semana</th>
             <th>Horário </th>
             <th>Matéria</th>    
             <th>Professor</th>
+            
         </tr>
     </thead>
    
@@ -103,20 +103,19 @@
            
           @endphp
          <tr id="tr"> 
-          
+          <input type="hidden" >
             <td>{{$diasemana->nm_diasemana }} </td> 
              <td>{{$horario->nm_horario}}  </td>       
              <td>{{$materia->nm_materia }}</td> 
              <td>{{$professor->nm_professor }}</td> 
           
-
-
+          
 
 
          </tr> 
          
          
-         
+        
          @endforeach    
          
     </tbody>
@@ -228,118 +227,30 @@
   </div>
 
 
-<!--Modal Editar -->
 
 
-<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="editar" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Turma</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-bordered" id="prof">
 
-          <thead>
-              <tr> <th></th>
-                  <th>Dia da semana</th>
-                  <th>Horário </th>
-                  <th>Matéria</th>    
-                  <th>Professor</th>
-                  
-                 
-                
-              </tr>
-          </thead>
-          <tbody >
-          @foreach($horarioProfessores as $key=>$horarioProf)
-         
-               @php 
-              //  dd($horarioProf);
-                  
-                  $professor=$horarioProf->find($horarioProf->id)->relProfessor;
-                  $materia=$horarioProf->find($horarioProf->id)->relMateria;
-                  $diasemana=$horarioProf->find($horarioProf->id)->relDiaSemana;
-                  $horario=$horarioProf->find($horarioProf->id)->relHorario;
-                  //dd($professor->nm_professor)
-                  //dd($materia->nm_materia)
-                  @endphp
-               <tr> 
-               
-            
-                  <td >  
-            
-                    <select id="diasemana_id[]" name="diasemana_id" class="form-control"   required="true" >
-                    <option value="{{$diasemana->id}}"> {{$diasemana->nm_diasemana}}</option>
-                      @foreach($diasemanas as $dia )
-                      <option value="{{$dia->id}}">{{$dia->nm_diasemana}}</option>
-                      @endforeach
-                  </select>
-                  </td> 
-                  <td>   
-                     <select id="horario_id[]" name="horario_id" class="form-control"   required="true" >
-                       <option value="{{$horario->id}}"> {{$horario->nm_horario }} </option>
-                        @foreach($horarios as $horario )
-                       <option value="{{$horario->id}}">{{$horario->nm_horario}}</option>
-                       @endforeach
-                     </select>
-                  </td>    
-                  
-                   <td>
-                    <select id="materia_id[]" name="materia_id" class="form-control"   required="true" >
-                      <option value="{{$materia->id}}"> {{$materia->nm_materia}} </option>
-                       @foreach($materias as $mat )
-                      <option value="{{$mat->id}}">{{$mat->nm_materia}}</option>
-                      @endforeach
-                    </select>
-                     </td> 
-      
-                     <td>
-                      <select id="professor_id[]" name="professor_id" class="form-control"   required="true" >
-                        
-                        <option value="{{$professor->id}}"> {{$professor->nm_professor}} </option>
-                        @foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)
-                            <option value="{{$professor->id }}">{{$professor->nm_professor}}</option>@endif 
-                        @endforeach
-                      </select> 
-                      
-                     </td>
-                    
-                  
-                    </tr>  
-              
-                  
-                       
-                 
-                </form>
-                        
-          </tbody>
-      
-         
-          @endforeach   
-        
-      
-      </table >
-      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
 
-</div>
+
 
 
   
-
 @section('post-script')
 
+
+ 
 <script >
+   $(document).ready(function(){
+
+    $('.editar').on('click',function(e){
+      e.preventDefault();
+      var id = $('#id').val();
+      console.log(id);
+    });
+  });
+
+
+ 
     $(document).ready(function(){
         $('#addform').on('submit',function(e){
             e.preventDefault();
