@@ -18,7 +18,9 @@ class ModelProfessor extends Model
         'h_hora',
         'materia1_id',
         'materia2_id',
-        'materia3_id'];
+        'materia3_id',
+        'materia4_id',
+        'materia5_id'];
 
     public function relUnidade(){
         return $this->belongsTo( 'App\Models\ModelUnidade', 'unidade_id');

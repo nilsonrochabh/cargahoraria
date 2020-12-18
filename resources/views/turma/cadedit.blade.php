@@ -69,12 +69,12 @@
        
              <tr> 
                 <td>  
-                  <select id="diasemana_id" name="diasenama_id" class="form-control"   required="true" >
+                  <select id="diasemana_id" name="diasenama_id[]" class="form-control"   required="true" >
                  
                 </select>
                 </td> 
                 <td>   
-                   <select id="horario_id" name="horario_id" class="form-control"   required="true" >
+                   <select id="horario_id" name="horario_id[]" class="form-control"   required="true" >
                      
                    </select>
                 </td>       

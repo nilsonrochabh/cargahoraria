@@ -14,7 +14,7 @@
         
  
   
-    <form  id="fEdit" action="{{url("turma/$horarioProf->id")}}">
+    <form  id="fEdit">
       @endforeach
       {{csrf_field()}}
       @method('PUT')
@@ -68,7 +68,7 @@
             <th>Horário </th>
             <th>Matéria</th>    
             <th>Professor</th>
-            <th>Ação</th>
+          
             
            
           
@@ -89,11 +89,11 @@
             //dd($materia->nm_materia)
             @endphp
          <tr> 
-  
+         <input type="hidden" name="id" id="id" value="{{$horarioProf->horarioturma_id}}">
       
             <td >  
       
-              <select id="diasemana_id[]" name="diasemana_id" class="form-control"   required="true" >
+              <select id="diasemana_id[]" name="diasemana_id[]" class="form-control"   required="true" >
               <option value="{{$diasemana->id}}"> {{$diasemana->nm_diasemana}}</option>
                 @foreach($diasemanas as $dia )
                 <option value="{{$dia->id}}">{{$dia->nm_diasemana}}</option>
@@ -101,7 +101,7 @@
             </select>
             </td> 
             <td>   
-               <select id="horario_id[]" name="horario_id" class="form-control"   required="true" >
+               <select id="horario_id[]" name="horario_id[]" class="form-control"   required="true" >
                  <option value="{{$horario->id}}"> {{$horario->nm_horario }} </option>
                   @foreach($horarios as $horario )
                  <option value="{{$horario->id}}">{{$horario->nm_horario}}</option>
@@ -110,16 +110,15 @@
             </td>    
             
              <td>
-              <select id="materia_id[]" name="materia_id" class="form-control"   required="true" >
+              <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" >
                 <option value="{{$materia->id}}"> {{$materia->nm_materia}} </option>
                  @foreach($materias as $mat )
                 <option value="{{$mat->id}}">{{$mat->nm_materia}}</option>
                 @endforeach
               </select>
                </td> 
-
                <td>
-                <select id="professor_id[]" name="professor_id" class="form-control"   required="true" >
+                <select id="professor_id[]" name="professor_id[]" class="form-control"   required="true" >
                   
                   <option value="{{$professor->id}}"> {{$professor->nm_professor}} </option>
                   @foreach($professores as $professor)@if($professor->unidade_id === $usuario->unidade_id)
@@ -129,7 +128,7 @@
                 
                </td>
                
-               <td > <a href="{{$horarioProf->id}}"> <input class="btn btn-info mb-4" style="width: 100%;" id="{{$horarioProf->id}} " value= "Editar" type="submit" ></a></td>
+             
               </tr> 
              
     </tbody>
@@ -143,7 +142,7 @@
 <a >
  
 </a>
-
+ <a href="{{$horarioProf->id}}"  class="button" > <input class="btn btn-info mb-4 " style="width: 100%;" id="{{$horarioProf->id}} " value= "Editar" type="submit" ></a>
 </form>  
 </div>
 </div>  
@@ -152,9 +151,10 @@
 @section('post-script')
 
 <script>
+
+
   $("#fEdit").on('submit',function(e){
     e.preventDefault();
-     
     $.ajax({
        type:'PUT',
        url:'/turma/atualizahorario/',

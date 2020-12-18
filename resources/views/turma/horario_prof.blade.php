@@ -50,8 +50,8 @@
                       </select>
                     </div>
                     <div class="form-group col-md-1">
-                        {{-- <a href="{{url("turma/$horarioturma->id/edit")}}">
-                            <button type="button"  class="btn btn-primary" > Editar</button></a> --}}
+                         <a href="{{url("turma/$horarioturma->id/edit")}}">
+                            <button type="button"  class="btn btn-primary" > Editar</button></a> 
                      </div>
                      <div class="form-group col-md-1">
                         <a href=  "{{url("/turma/$horarioturma->id")}}" class="j-del">

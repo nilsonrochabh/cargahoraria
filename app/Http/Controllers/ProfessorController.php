@@ -16,6 +16,7 @@ use App\Models\ModelSeguimento;
 use App\Models\ModelTurma;
 use App\Models\ModelTurno;
 use App\Models\ModelProfessorHorario;
+use App\Models\ModelMateriaProfessor;
 use Illuminate\Support\Facades\Auth;
 
 class ProfessorController extends Controller
@@ -54,7 +55,7 @@ class ProfessorController extends Controller
     
     public function store(Request $request)
     {
-        $cadastro = ModelProfessor::create([
+         $cadastro = ModelProfessor::create([
             'matricula'=>$request->matricula,
             'id'=>$request->id,
             'nm_professor'=>$request->nm_professor,
@@ -63,10 +64,13 @@ class ProfessorController extends Controller
             'h_hora'=>$request->h_hora,
             'materia1_id'=>$request->materia1_id,
             'materia2_id'=>$request->materia2_id,
-            'materia3_id'=>$request->materia3_id,]);
+            'materia3_id'=>$request->materia3_id,
+            'materia4_id'=>$request->materia4_id,
+            'materia5_id'=>$request->materia5_id,]);
             if($cadastro){
                 return redirect('professor/');
-            }
+             
+        }
     }
 
     public function show($id)

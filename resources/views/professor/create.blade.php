@@ -52,7 +52,7 @@
         <div class="form-row mb-12">
 
         
-     <div class="col-4">
+     <div class="col-3">
      <div class="col">
 
       
@@ -62,6 +62,7 @@
       $num1=$professor->materia1_id;
       $num2=$professor->materia2_id;
       $num3=$professor->materia3_id;
+      $num4=$professor->materia4_id;
       //dd($num1);
       foreach ($materias as $key => $materia) {
        if ($materia->id == $num3) {
@@ -73,6 +74,9 @@
        if ($materia->id == $num1) {
          $mat1 = $materia->nm_materia;
        }
+       if ($materia->id == $num4) {
+         $mat4 = $materia->nm_materia;
+       }
       }
       //dd($mat1)
       
@@ -82,8 +86,7 @@
       
        
 
-
-   
+ 
      <label for="">Disciplina 1</label>
                       <select class="custom-select" id="materia1_id" name="materia1_id">
                       <option value="{{$professor->materia1_id ?? ''}}">{{$mat1 ?? ''}} </option>
@@ -96,7 +99,7 @@
                   </div>
 
     </div>
-    <div class="col-4">
+    <div class="col-3">
      <div class="col">
      <label for="">Disciplina 2</label>
                       <select class="custom-select" id="materia2_id" name="materia2_id">
@@ -111,7 +114,7 @@
                   </div>
 
     </div>
-    <div class="col-4">
+    <div class="col-3">
      <div class="col">
      <label for="">Disciplina 3</label>
                       <select class="custom-select" id="materia3_id" name="materia3_id">
@@ -125,7 +128,21 @@
 
 <br>
     </div>
-
+    <div class="col-3">
+      <div class="col">
+      <label for="">Disciplina 4</label>
+                       <select class="custom-select" id="materia4_id" name="materia4_id">
+                         <option value="{{$professor->materia4_id ?? ''}}">{{$mat4 ?? ''}} </option>
+                             @foreach($materias as $materia4_id )
+                               <option value="{{$materia4_id->id}}">{{$materia4_id->nm_materia}}</option>
+                               @endforeach
+                             
+                       </select> 
+                   </div>
+ 
+ <br>
+     </div>
+ 
     
     
     <!-- Sign up button -->
