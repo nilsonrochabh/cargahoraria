@@ -288,7 +288,7 @@
                                   </select>
                   </td>  
                 <td>
-                  <select id="materia_id[]" name="materia_id[]" class="form-control"   required="true" > 
+                  <select id="materiasexta_id[]" name="materia_id[]" class="form-control"   required="true" > 
                     <option value="0"></option> 
                   </select>              
                   
@@ -327,13 +327,13 @@
 
 
 $('#seguimento_id').on('click',function(){
-  var prof = $(('select[name="professor_id[]"]')).val();
+  var prof = $(('select[name="materia_id[]"]')).val();
   if(prof == 0 ){
     
     $('#button1').css('display','none');
   }  
 });
- var prof = $('select[id="professorsexta_id[]"]').on('change', function(){
+ var prof = $('select[id="materiasexta_id[]"]').on('change', function(){
         let valor = $(this).val();
         console.log("Valor Escolhido foi: "+valor);
         $('#button1').css('display','block');
@@ -655,7 +655,7 @@ function addRow()
                       
                         jQuery.each(data, function(key,value){
                          
-                        $('select[id="materia_id[]"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        $('select[name="materia_id[]"]').append('<option value="'+ key +'">'+ value +'</option>');
                       
                         });
                         mat.push(data);  

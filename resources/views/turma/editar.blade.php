@@ -1,6 +1,7 @@
 
 @extends('layouts.professor');
 @section('content')
+
 <br/>
 <div class="container">
     <div class="text-center">
@@ -11,22 +12,14 @@
       <hr />   
     </div>
     @foreach($horarioProfessores as $key=>$horarioProf)
-        
- 
-  
-    <form  id="fEdit">
       @endforeach
-      {{csrf_field()}}
+     
       @method('PUT')
-   
-    @csrf
-    @php
+     @php
                     
-            //$seguimento=$horarioTurma->find($horarioTurma->id)->relSeguimento;
             $serie=$horarioTurma->find($horarioTurma->id)->relSerie;
             $turno=$horarioTurma->find($horarioTurma->id)->relTurno;
             $turma=$horarioTurma->find($horarioTurma->id)->relTurma;
-           //dd($horarioTurma->relSeguimento->nm_seguimento);
       @endphp
     <div class="row">
             <div class="form-group col-md-3">
@@ -75,12 +68,14 @@
         </tr>
     </thead>
     <tbody >
+      <form  id="fEdit" >
+      {{ csrf_field() }}
+              
     @foreach($horarioProfessores as $key=>$horarioProf)
    
     @if($horarioTurma->id===$horarioProf->horarioturma_id)
          @php 
-        //  dd($horarioProf);
-            
+     
             $professor=$horarioProf->find($horarioProf->id)->relProfessor;
             $materia=$horarioProf->find($horarioProf->id)->relMateria;
             $diasemana=$horarioProf->find($horarioProf->id)->relDiaSemana;
@@ -89,7 +84,8 @@
             //dd($materia->nm_materia)
             @endphp
          <tr> 
-         <input type="hidden" name="id" id="id" value="{{$horarioProf->horarioturma_id}}">
+          <input type="hidden" name="id" id="id" value="{{$horarioProf->horarioturma_id}}">
+
       
             <td >  
       
@@ -132,17 +128,16 @@
               </tr> 
              
     </tbody>
-
+    
     @endif
     
     @endforeach   
-  
 
 </table >
 <a >
  
 </a>
- <a href="{{$horarioProf->id}}"  class="button" > <input class="btn btn-info mb-4 " style="width: 100%;" id="{{$horarioProf->id}} " value= "Editar" type="submit" ></a>
+ <input class="btn btn-info mb-4 " style="width: 100%;"  value= "Editar" type="submit" >
 </form>  
 </div>
 </div>  
@@ -155,13 +150,23 @@
 
   $("#fEdit").on('submit',function(e){
     e.preventDefault();
+    var id = $("#id").val();
+    var dados = $('#fEdit').serialize();
+    // var diasemana_id = $('select[name="diasemana_id[]"]').val();
+    // var horario_id = $('select[name="horario_id[]"]').val();
+    // var materia_id = $('select[name="materia_id[]"]').val();
+    // var professor_id = $('select[name="professor_id[]"]').val();
+    
+    //var dados = 'id'+id+'horario_id&amp;'+horario_id+'diasemana_id&amp;'+diasemana_id+'materia_id&amp;'+materia_id+'professor_id&amp;'+professor_id;
     $.ajax({
-       type:'PUT',
-       url:'/turma/atualizahorario/',
-       data:$('#fEdit').serialize(),
+        type:'PUT',
+   
+        url:'/turma/atualizahorario/'+id,
+        data:dados,
        success:function(response){
+         
          console.log(response);
-         //window.location.href = 'turma/';
+         location.reload();
        },
        error:function(error){
          console.log(error);
