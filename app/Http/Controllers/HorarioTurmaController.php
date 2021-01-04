@@ -75,9 +75,9 @@ class HorarioTurmaController extends Controller
         $horarioProfessores=ModelProfessorHorario::where('horarioturma_id','=',$id)
                 ->orderBy('diasemana_id','asc')
                 ->orderBy('horario_id','asc')->get();
+                $horarioTurma=ModelHorarioTurma::with('relProfessor', 'relDiaSemana','relHorario','relTurno','relSeguimento','relSerie','relTurma','relHorario', 'relProfessorHorario')->find($id);
         $seguimentos = $this->objSeguimento->all();
         $series =$this->objSerie->all();
-      
         $diasemanas =ModelDiaSemana::orderBy('id', 'asc')->get();
         $horarios=$this->objHorario->all();
         $horarioTurmas=ModelHorarioTurma::where('id','=',$id)->get();
@@ -87,7 +87,7 @@ class HorarioTurmaController extends Controller
         $materias=$this->objMateria->all();
         $usuario = Auth::user(); 
         return view('turma/horario_prof',compact('horarioProfessores' ,'seguimentos','diasemanas','horarios','series'
-        ,'horarioTurmas','turmas','turnos','professores','materias','usuario'));
+        ,'horarioTurmas','turmas','turnos','professores','materias','usuario','horarioTurma'));
     }
     public function create()
     {
@@ -145,8 +145,7 @@ class HorarioTurmaController extends Controller
     return redirect()->route('turma.index')->with('sucess','Dados Cadastrados com Sucesso');
     //return $request;
        
-     }
-    
+    }
   
     public function show($id)
     {
@@ -209,112 +208,38 @@ class HorarioTurmaController extends Controller
      */
     public function edit($id)
     {
-        $horarioTurma=ModelHorarioTurma::with('relProfessor', 'relDiaSemana','relHorario','relTurno','relSeguimento','relSerie','relTurma','relHorario', 'relProfessorHorario')->find($id);
-        $horarioProfessores=ModelProfessorHorario::all();
-        $seguimentos = $this->objSeguimento->all();
-        $series =$this->objSerie->all();
-        $diasemanas =ModelDiaSemana::orderBy('id', 'asc')->get();
-        $horarios=$this->objHorario->all();
-        $turmas=$this->objTurma->all();
-        $turnos=$this->objTurno->all();
-        $professores=$this->objProfessor->all();
-        $materias=ModelMaterias::get();
-        $usuario = Auth::user();     
+        
+         $horarioProfessor=ModelProfessorHorario::find($id);
+        // $seguimentos = $this->objSeguimento->all();
+        // $series =$this->objSerie->all();
+         $diasemanas =$this->objDiaSemana->all();
+         $horarios=$this->objHorario->all();
+        // $turmas=$this->objTurma->all();
+         ////$turnos=$this->objTurno->all();
+         $professores=$this->objProfessor->all();
+         $materias=ModelMaterias::get();
+         $usuario = Auth::user();     
         
         
-        return view('turma/editar', compact('seguimentos','diasemanas','horarios','series','horarioTurma','turmas','turnos','professores','materias','usuario','horarioProfessores'));
+        return view('turma/editar', compact('horarioProfessor', 'diasemanas','horarios','professores','materias','usuario'));
     }
 
   
-    public function update(Request $request,$id){  
-       
+    public function update(Request $request,$id){ 
 
-        for ($i=0; $i<count($request->materia_id); $i++) {
-
-            DB::table('horarioturmaprofessor')
-                ->where('horarioturma_id',$id)
-                ->update([
-                    'diasemana_id'=>$request->diasemana_id[$i],
-                    'horario_id'=>$request->horario_id[$i],
-                    'materia_id'=>$request->materia_id[$i],
-                    'professor_id'=>$request->professor_id[$i],
-                    
+        $atualizar=$this->objProfessorHorario->where(['id'=>$id])->update([
+            'professor_id'=>$request->professor_id,
+            'materia_id'=>$request->materia_id,
+            'horario_id'=>$request->horario_id,
+            'diasemana_id'=>$request->diasemana_id,
                 ]);
-    
-        } 
-       
-        
-            // $dados =[
-            //     ['diasemana_id' => $request->diasemana_id],
-            //     ['horario_id' => $request->horario_id],
-            //     ['materia_id' => $request->materia_id],
-            //     ['professor_id' => $request->professor_id],
-                
-            //  ];
-            // DB::table('horarioturmaprofessor')
-            // ->where('horarioturma_id',$id)
-            // ->update(array('diasemana_id' => $request->diasemana_id,
-            // 'horario_id' => $request->horario_id,
-            // 'materia_id' => $request->materia_id,
-            // 'professor_id' => $request->professor_id,));
-            
-        
-      
 
-        // //    }
-        // // }
-            //return redirect()->back();
-        
-        return $request;
-       
-        
-        
+            if($atualizar){
+                return response()->json($atualizar);
+            }
 
-    //      foreach($id as $key => $value){ 
 
-    //         $horario = ModelProfessorHorario::find($request->id[$key]); 
-    //         $horario->diasemana_id= $request->diasemana_id[$key];
-    //         $horario->horario_id= $request->horario_id[$key];
-    //         $horario->materia_id= $request->materia_id[$key];
-    //         $horario->professor_id= $request->professor_id[$key];
-
-    //         $horario->save();
-            
-    //    }
-    //   $horario =  ModelProfessorHorario::find($id);
-    //      if($request->ajax()) {            
-    //         $horario->diasemana_id= $request->diasemana_id;
-    //         $horario->horario_id= $request->horario_id;
-    //         $horario->materia_id= $request->materia_id;
-    //         $horario->professor_id= $request->professor_id;
-
-    //         $horario->save();
         
-    //      }
-
-    // if(count($request->professor_id) > 0)
-    //   {
-    //   foreach($request->professor_id as $horario=>$v){
-    //     //    $dados2 = array(
-    //     //       'professor_id'=>$request->professor_id[$horario],
-    //     //       'diasemana_id'=>$request->diasemana_id[$horario],
-    //     //       'horario_id'=>$request->horario_id[$horario],
-    //     //       'materia_id'=>$request->materia_id[$horario],
-    //     //   );
-    //       DB::table('horarioturmaprofessor')->update([
-    //         'diasemana_id' => $request['diasemana_id'],
-    //         'horario_id' => $request['horario_id'],
-    //         'materia_id' => $request['materia_id'],
-    //         'professor_id' => $request['professor_id'],
-    //                         ]);
-    //   }
-    
-    // }
-    // return redirect()->route('turma.index')->with('sucess','Dados Cadastrados com Sucesso');
-        
-}
-public function altera(Request $request, $id) {
-    
 }
 
     public function updatehorario(Request $request){  
@@ -358,6 +283,13 @@ public function altera(Request $request, $id) {
     {
         $del = ModelHorarioTurma::destroy($id);
         return($del)?"sim":"não";
+    }
+    public function excluiHorario($id)
+    {
+       ModelProfessorHorario::find($id)->delete();
+       return response()->json([
+        'success' => 'Record deleted successfully!'
+    ]);
     }
     public function cadprof()
     {

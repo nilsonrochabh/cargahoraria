@@ -1,5 +1,5 @@
 
-@extends('layouts.professor');
+@extends('layouts.layout');
 @section('content')
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
@@ -60,6 +60,8 @@
               <button class="btn btn-primary">Visualizar Turma</button>
               
           </a>
+          <a href=  "{{url("/turma/$horarioturma->id")}}" class="j-del">
+            <button class="btn btn-danger"> Excluir</button></a>
           
             </td>
         </tr>

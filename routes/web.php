@@ -46,7 +46,7 @@ Route::post('/professor/adddisciplina/','ProfessorController@adddisciplina')->mi
 Route::delete('/professor/{professor}' ,'ProfessorController@destroy')->middleware('auth');   
 
 
-
+Route::delete('turma/excluiHorario/{id}' ,'HorarioTurmaController@excluiHorario')->middleware('auth');   
 Route::post('turma/addhorario','HorarioTurmaController@updatehorario')->name('turma/horario_prof/{{turma}}');;
 Route::put('/turma/atualizahorario/{id}','HorarioTurmaController@update')->name('turma.update');
 

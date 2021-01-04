@@ -2,7 +2,7 @@
 @extends('layouts.layout');
 @section('content')
 
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <div class="container">
     <div class="text-center">
@@ -11,10 +11,15 @@
         <button class="btn btn-success">Voltar</button>
         </a>    
       <hr />
+      <div class="alert alert-success d-none mensagemBox" role="alert">
+      
+      </div> 
       
     
     </div>
-  
+    <div class="alert alert-success d-none mensagemBox" role="alert">
+      
+    </div>
     @foreach($horarioTurmas as $horarioturma)   
     
         @php
@@ -50,12 +55,11 @@
                       </select>
                     </div>
                     <div class="form-group col-md-1">
-                         <a href="{{url("turma/$horarioturma->id/edit")}}">
-                            <button type="button"  class="btn btn-primary" > Editar</button></a> 
+                         {{-- <a href="{{url("turma/$horarioturma->id/edit")}}">
+                            <button type="button"  class="btn btn-primary" > Editar</button></a>  --}}
                      </div>
                      <div class="form-group col-md-1">
-                        <a href=  "{{url("/turma/$horarioturma->id")}}" class="j-del">
-                            <button class="btn btn-danger"> Excluir</button></a>
+           
                      </div>
                      <div class="form-group col-md-1">
 
@@ -79,26 +83,20 @@
             <th>Horário </th>
             <th>Matéria</th>    
             <th>Professor</th>
+            <th>Ação</th>
+          
             
         </tr>
     </thead>
    
-    <tbody>
-   
-     
-      
-       
-      
-    
+    <tbody>    
     @foreach($horarioProfessores as $horarioProf)
          @php 
             $professor=$horarioProf->find($horarioProf->id)->relProfessor;
             $materia=$horarioProf->find($horarioProf->id)->relMateria;
             $diasemana=$horarioProf->find($horarioProf->id)->relDiaSemana;
-            
             $horario=$horarioProf->find($horarioProf->id)->relHorario;
-            //dd($horarioProf);
-            //dd($materia->nm_materia);
+      
           
            
           @endphp
@@ -108,13 +106,16 @@
              <td>{{$horario->nm_horario}}  </td>       
              <td>{{$materia->nm_materia }}</td> 
              <td>{{$professor->nm_professor }}</td> 
-          
-          
-
+            <td><a href="{{url("turma/$horarioProf->id/edit")}}">
+              <button type="button"  class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" > Editar</button></a> 
+               <a href=  "{{url("/turma/$horarioProf->id")}}" data-info = "{{$horarioProf->id}}" class="del">
+                <button class="btn btn-danger"> Excluir</button></a> 
+            </td>
+             
 
          </tr> 
          
-         
+        
         
          @endforeach    
          
@@ -127,7 +128,7 @@
 
 
 
-  <!-- Modal -->
+  <!-- Modal Add horario -->
   <div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -228,26 +229,19 @@
 
 
 
-
-
-
-
-
-
   
 @section('post-script')
 
-
  
 <script >
-   $(document).ready(function(){
+  //  $(document).ready(function(){
 
-    $('.editar').on('click',function(e){
-      e.preventDefault();
-      var id = $('#id').val();
-      console.log(id);
-    });
-  });
+  //   $('.editar').on('click',function(e){
+  //     e.preventDefault();
+  //     var id = $('#id').val();
+  //     console.log(id);
+  //   });
+  // });
 
 
  
@@ -276,6 +270,73 @@
     });
 
 </script>
+ <script >
+   $(document).ready(function(){
+        $('.del').on('click',function(e){
+            e.preventDefault();
+            var id = $(this).attr("data-info");
+            console.log(id);
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            $.ajax({
+                type:"DELETE",
+                url:"/turma/excluiHorario/"+id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {
+                      "id": id,
+                      "_token": token,
+           },
+               success: function (){
+ 
+          alert('Horário Excluido com sucesso!');
+         location.reload();
+        
+               console.log("it Works");
+            },
+                erro: function(erro){
+                    console.log(error)
+                    alert("Error");
+                }
+            });
+        });
+    });
+
+</script> 
+{{-- 
+<script>
+  (function(wind,doc){
+    'use strict';
+
+    function confirmarDelete(event){
+        event.preventDefault();
+        //console.log(event.target.parentNode.href);
+        var id = $(this).attr("data-info");
+            console.log(id);
+        let token = doc.getElementsByName("_token")[0].value;
+        if(confirm("Deseja Realmente apagar o curso?")){
+            let ajax = new XMLHttpRequest();
+            ajax.open("DELETE",event.target.parentNode.href);
+            ajax.url("/turma/excluiHorario/"+id);
+            ajax.setRequestHeader('X-CSRF-TOKEN',token);
+            ajax.onreadystatechange=function(){
+                if(ajax.readyState === 4 && ajax.status === 200){
+                    //console.log("aqui");
+                    wind.location.href="/cursos";
+                }    
+            };
+            ajax.send();
+        }else{
+            return false;    
+        }
+    }
+    if(doc.querySelector('.del')){
+        let btn = doc.querySelectorAll('.del');
+        for(let i=0;i<btn.length;i++){
+            btn[i].addEventListener('click',confirmarDelete,false);
+        }
+    }
+  });
+</script> --}}
 
 
 @endsection

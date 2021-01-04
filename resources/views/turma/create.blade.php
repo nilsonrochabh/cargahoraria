@@ -29,7 +29,7 @@
             <div class="row">
        
             <div class="form-group col-md-3">
-              <label for="Seguimento ">Seguimento</label>
+              <label for="Seguimento ">Segmento</label>
                     <select id="seguimento_id" name="seguimento_id" class="form-control"   >
                       <option value=""></option>
                         @foreach($seguimentos as $seguimento)
